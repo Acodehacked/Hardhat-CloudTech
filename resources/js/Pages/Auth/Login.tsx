@@ -40,7 +40,7 @@ export default function Login({
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Email" className='text-white font-medium' />
 
                     <TextInput
                         id="email"
@@ -53,11 +53,11 @@ export default function Login({
                         onChange={(e) => setData('email', e.target.value)}
                     />
 
-                    <InputError message={errors.email} className="mt-2" />
+                    <InputError message={errors.email} className="mt-2 text-white font-medium" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel htmlFor="password" value="Password" className='text-white font-medium' />
 
                     <TextInput
                         id="password"
@@ -81,7 +81,7 @@ export default function Login({
                                 setData('remember', e.target.checked)
                             }
                         />
-                        <span className="ms-2 text-sm text-gray-600">
+                        <span className="ms-2 text-sm text-white font-light">
                             Remember me
                         </span>
                     </label>
