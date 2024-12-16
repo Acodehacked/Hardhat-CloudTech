@@ -5,7 +5,7 @@ import { gray, orange } from '../themePrimitives';
 export const feedbackCustomizations: Components<Theme> = {
   MuiAlert: {
     styleOverrides: {
-      root: ({ theme }) => ({
+      root: ({ theme }:{theme:Theme}) => ({
         borderRadius: 10,
         backgroundColor: orange[100],
         color: theme.palette.text.primary,
@@ -22,7 +22,7 @@ export const feedbackCustomizations: Components<Theme> = {
   },
   MuiDialog: {
     styleOverrides: {
-      root: ({ theme }) => ({
+      root: ({ theme }:{theme:Theme}) => ({
         '& .MuiDialog-paper': {
           borderRadius: '10px',
           border: '1px solid',
@@ -33,7 +33,7 @@ export const feedbackCustomizations: Components<Theme> = {
   },
   MuiLinearProgress: {
     styleOverrides: {
-      root: ({ theme }) => ({
+      root: ({ theme }:{theme:Theme}) => ({
         height: 8,
         borderRadius: 8,
         backgroundColor: gray[200],

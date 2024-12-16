@@ -6,7 +6,7 @@ import MuiChip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { styled } from '@mui/material/styles';
+import { styled, Theme } from '@mui/material/styles';
 
 import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';
 import EdgesensorHighRoundedIcon from '@mui/icons-material/EdgesensorHighRounded';
@@ -43,7 +43,7 @@ interface ChipProps {
   selected?: boolean;
 }
 
-const Chip = styled(MuiChip)<ChipProps>(({ theme }) => ({
+const Chip = styled(MuiChip)<ChipProps>(({ theme }:{theme:Theme}) => ({
   variants: [
     {
       props: ({ selected }) => selected,

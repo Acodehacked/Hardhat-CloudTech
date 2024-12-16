@@ -1,18 +1,17 @@
 import { alpha, Theme } from '@mui/material/styles';
-import type { PickersProComponents } from '@mui/x-date-pickers-pro/themeAugmentation';
 import type { PickerComponents } from '@mui/x-date-pickers/themeAugmentation';
 import { pickersYearClasses, pickersMonthClasses, pickersDayClasses } from '@mui/x-date-pickers';
 import { menuItemClasses } from '@mui/material/MenuItem';
 import { gray, brand } from '../../../shared-theme/themePrimitives';
 
 /* eslint-disable import/prefer-default-export */
-export const datePickersCustomizations: PickersProComponents<Theme> & PickerComponents<Theme> = {
+export const datePickersCustomizations: PickerComponents<Theme> = {
   MuiPickersPopper: {
     styleOverrides: {
-      paper: ({ theme }) => ({
+      paper: ({ theme }:{theme:Theme}) => ({
         marginTop: 4,
         borderRadius: theme.shape.borderRadius,
-        border: `1px solid ${(theme.vars || theme).palette.divider}`,
+        border: `1px solid ${theme.palette.divider}`,
         backgroundImage: 'none',
         background: 'hsl(0, 0%, 100%)',
         boxShadow:
@@ -32,11 +31,11 @@ export const datePickersCustomizations: PickersProComponents<Theme> & PickerComp
   MuiPickersArrowSwitcher: {
     styleOverrides: {
       spacer: { width: 16 },
-      button: ({ theme }) => ({
+      button: ({ theme }:{theme:Theme}) => ({
         backgroundColor: 'transparent',
-        color: (theme.vars || theme).palette.grey[500],
+        color: theme.palette.grey[500],
         ...theme.applyStyles('dark', {
-          color: (theme.vars || theme).palette.grey[400],
+          color: theme.palette.grey[400],
         }),
       }),
     },
@@ -51,13 +50,13 @@ export const datePickersCustomizations: PickersProComponents<Theme> & PickerComp
   },
   MuiPickersMonth: {
     styleOverrides: {
-      monthButton: ({ theme }) => ({
+      monthButton: ({ theme }:{theme:Theme}) => ({
         fontSize: theme.typography.body1.fontSize,
-        color: (theme.vars || theme).palette.grey[600],
+        color: theme.palette.grey[600],
         padding: theme.spacing(0.5),
         borderRadius: theme.shape.borderRadius,
         '&:hover': {
-          backgroundColor: (theme.vars || theme).palette.action.hover,
+          backgroundColor: theme.palette.action.hover,
         },
         [`&.${pickersMonthClasses.selected}`]: {
           backgroundColor: gray[700],
@@ -70,12 +69,12 @@ export const datePickersCustomizations: PickersProComponents<Theme> & PickerComp
           [`&.${pickersMonthClasses.selected}`]: { backgroundColor: gray[700] },
         },
         ...theme.applyStyles('dark', {
-          color: (theme.vars || theme).palette.grey[300],
+          color: theme.palette.grey[300],
           '&:hover': {
-            backgroundColor: (theme.vars || theme).palette.action.hover,
+            backgroundColor: theme.palette.action.hover,
           },
           [`&.${pickersMonthClasses.selected}`]: {
-            color: (theme.vars || theme).palette.common.black,
+            color: theme.palette.common.black,
             fontWeight: theme.typography.fontWeightMedium,
             backgroundColor: gray[300],
           },
@@ -91,14 +90,14 @@ export const datePickersCustomizations: PickersProComponents<Theme> & PickerComp
   },
   MuiPickersYear: {
     styleOverrides: {
-      yearButton: ({ theme }) => ({
+      yearButton: ({ theme }:{theme:Theme}) => ({
         fontSize: theme.typography.body1.fontSize,
-        color: (theme.vars || theme).palette.grey[600],
+        color: theme.palette.grey[600],
         padding: theme.spacing(0.5),
         borderRadius: theme.shape.borderRadius,
         height: 'fit-content',
         '&:hover': {
-          backgroundColor: (theme.vars || theme).palette.action.hover,
+          backgroundColor: theme.palette.action.hover,
         },
         [`&.${pickersYearClasses.selected}`]: {
           backgroundColor: gray[700],
@@ -111,12 +110,12 @@ export const datePickersCustomizations: PickersProComponents<Theme> & PickerComp
           [`&.${pickersYearClasses.selected}`]: { backgroundColor: gray[700] },
         },
         ...theme.applyStyles('dark', {
-          color: (theme.vars || theme).palette.grey[300],
+          color: theme.palette.grey[300],
           '&:hover': {
-            backgroundColor: (theme.vars || theme).palette.action.hover,
+            backgroundColor: theme.palette.action.hover,
           },
           [`&.${pickersYearClasses.selected}`]: {
-            color: (theme.vars || theme).palette.common.black,
+            color: theme.palette.common.black,
             fontWeight: theme.typography.fontWeightMedium,
             backgroundColor: gray[300],
           },
@@ -132,13 +131,13 @@ export const datePickersCustomizations: PickersProComponents<Theme> & PickerComp
   },
   MuiPickersDay: {
     styleOverrides: {
-      root: ({ theme }) => ({
+      root: ({ theme }:{theme:Theme}) => ({
         fontSize: theme.typography.body1.fontSize,
-        color: (theme.vars || theme).palette.grey[600],
+        color: theme.palette.grey[600],
         padding: theme.spacing(0.5),
         borderRadius: theme.shape.borderRadius,
         '&:hover': {
-          backgroundColor: (theme.vars || theme).palette.action.hover,
+          backgroundColor: theme.palette.action.hover,
         },
         [`&.${pickersDayClasses.selected}`]: {
           backgroundColor: gray[700],
@@ -151,12 +150,12 @@ export const datePickersCustomizations: PickersProComponents<Theme> & PickerComp
           [`&.${pickersDayClasses.selected}`]: { backgroundColor: gray[700] },
         },
         ...theme.applyStyles('dark', {
-          color: (theme.vars || theme).palette.grey[300],
+          color: theme.palette.grey[300],
           '&:hover': {
-            backgroundColor: (theme.vars || theme).palette.action.hover,
+            backgroundColor: theme.palette.action.hover,
           },
           [`&.${pickersDayClasses.selected}`]: {
-            color: (theme.vars || theme).palette.common.black,
+            color: theme.palette.common.black,
             fontWeight: theme.typography.fontWeightMedium,
             backgroundColor: gray[300],
           },

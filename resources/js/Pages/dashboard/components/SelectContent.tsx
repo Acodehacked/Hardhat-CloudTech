@@ -7,13 +7,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListSubheader from '@mui/material/ListSubheader';
 import Select, { SelectChangeEvent, selectClasses } from '@mui/material/Select';
 import Divider from '@mui/material/Divider';
-import { styled } from '@mui/material/styles';
+import { styled, Theme } from '@mui/material/styles';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';
 import SmartphoneRoundedIcon from '@mui/icons-material/SmartphoneRounded';
 import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded';
 
-const Avatar = styled(MuiAvatar)(({ theme }) => ({
+const Avatar = styled(MuiAvatar)(({ theme }:{theme:Theme}) => ({
   width: 28,
   height: 28,
   backgroundColor: theme.palette.background.paper,

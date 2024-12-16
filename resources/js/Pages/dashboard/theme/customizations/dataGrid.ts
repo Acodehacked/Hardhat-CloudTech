@@ -1,6 +1,5 @@
 import { paperClasses } from '@mui/material/Paper';
 import { alpha, Theme } from '@mui/material/styles';
-import type { DataGridProComponents } from '@mui/x-data-grid-pro/themeAugmentation';
 import type { DataGridComponents } from '@mui/x-data-grid/themeAugmentation';
 import { menuItemClasses } from '@mui/material/MenuItem';
 import { listItemIconClasses } from '@mui/material/ListItemIcon';
@@ -12,19 +11,19 @@ import { tablePaginationClasses } from '@mui/material/TablePagination';
 import { gray } from '../../../shared-theme/themePrimitives';
 
 /* eslint-disable import/prefer-default-export */
-export const dataGridCustomizations: DataGridProComponents<Theme> & DataGridComponents<Theme> = {
+export const dataGridCustomizations: DataGridComponents<Theme> = {
   MuiDataGrid: {
     styleOverrides: {
-      root: ({ theme }) => ({
+      root: ({ theme }:{theme:Theme}) => ({
         '--DataGrid-overlayHeight': '300px',
         overflow: 'clip',
-        borderColor: (theme.vars || theme).palette.divider,
-        backgroundColor: (theme.vars || theme).palette.background.default,
+        borderColor: theme.palette.divider,
+        backgroundColor: theme.palette.background.default,
         [`& .${gridClasses.columnHeader}`]: {
-          backgroundColor: (theme.vars || theme).palette.background.paper,
+          backgroundColor: theme.palette.background.paper,
         },
         [`& .${gridClasses.footerContainer}`]: {
-          backgroundColor: (theme.vars || theme).palette.background.paper,
+          backgroundColor: theme.palette.background.paper,
         },
         [`& .${checkboxClasses.root}`]: {
           padding: theme.spacing(0.5),
@@ -43,12 +42,12 @@ export const dataGridCustomizations: DataGridProComponents<Theme> & DataGridComp
           },
         },
       }),
-      cell: ({ theme }) => ({ borderTopColor: (theme.vars || theme).palette.divider }),
-      menu: ({ theme }) => ({
+      cell: ({ theme }:{theme:Theme}) => ({ borderTopColor: theme.palette.divider }),
+      menu: ({ theme }:{theme:Theme}) => ({
         borderRadius: theme.shape.borderRadius,
         backgroundImage: 'none',
         [`& .${paperClasses.root}`]: {
-          border: `1px solid ${(theme.vars || theme).palette.divider}`,
+          border: `1px solid ${theme.palette.divider}`,
         },
 
         [`& .${menuItemClasses.root}`]: {
@@ -63,19 +62,19 @@ export const dataGridCustomizations: DataGridProComponents<Theme> & DataGridComp
         },
       }),
 
-      row: ({ theme }) => ({
-        '&:last-of-type': { borderBottom: `1px solid ${(theme.vars || theme).palette.divider}` },
+      row: ({ theme }:{theme:Theme}) => ({
+        '&:last-of-type': { borderBottom: `1px solid ${theme.palette.divider}` },
         '&:hover': {
-          backgroundColor: (theme.vars || theme).palette.action.hover,
+          backgroundColor: theme.palette.action.hover,
         },
         '&.Mui-selected': {
-          background: (theme.vars || theme).palette.action.selected,
+          background: theme.palette.action.selected,
           '&:hover': {
-            backgroundColor: (theme.vars || theme).palette.action.hover,
+            backgroundColor: theme.palette.action.hover,
           },
         },
       }),
-      iconButtonContainer: ({ theme }) => ({
+      iconButtonContainer: ({ theme }:{theme:Theme}) => ({
         [`& .${iconButtonClasses.root}`]: {
           border: 'none',
           backgroundColor: 'transparent',
@@ -96,7 +95,7 @@ export const dataGridCustomizations: DataGridProComponents<Theme> & DataGridComp
           }),
         },
       }),
-      menuIconButton: ({ theme }) => ({
+      menuIconButton: ({ theme }:{theme:Theme}) => ({
         border: 'none',
         backgroundColor: 'transparent',
         '&:hover': {
@@ -115,11 +114,11 @@ export const dataGridCustomizations: DataGridProComponents<Theme> & DataGridComp
           },
         }),
       }),
-      filterForm: ({ theme }) => ({
+      filterForm: ({ theme }:{theme:Theme}) => ({
         gap: theme.spacing(1),
         alignItems: 'flex-end',
       }),
-      columnsManagementHeader: ({ theme }) => ({
+      columnsManagementHeader: ({ theme }:{theme:Theme}) => ({
         paddingRight: theme.spacing(3),
         paddingLeft: theme.spacing(3),
       }),

@@ -14,14 +14,14 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import { styled } from '@mui/material/styles';
+import { styled, Theme } from '@mui/material/styles';
 
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import CreditCardRoundedIcon from '@mui/icons-material/CreditCardRounded';
 import SimCardRoundedIcon from '@mui/icons-material/SimCardRounded';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 
-const Card = styled(MuiCard)<{ selected?: boolean }>(({ theme }) => ({
+const Card = styled(MuiCard)<{ selected?: boolean }>(({ theme }:{theme:Theme}) => ({
   border: '1px solid',
   borderColor: theme.palette.divider,
   width: '100%',
@@ -54,7 +54,7 @@ const Card = styled(MuiCard)<{ selected?: boolean }>(({ theme }) => ({
   ],
 }));
 
-const PaymentContainer = styled('div')(({ theme }) => ({
+const PaymentContainer = styled('div')(({ theme }:{theme:Theme}) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',

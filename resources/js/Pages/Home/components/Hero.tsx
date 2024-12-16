@@ -9,10 +9,10 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { visuallyHidden } from '@mui/utils';
-import { styled } from '@mui/material/styles';
+import { styled, Theme } from '@mui/material/styles';
 import { Input } from '@/Components/ui/input';
 
-const StyledBox = styled('div')(({ theme }) => ({
+const StyledBox = styled('div')(({ theme }:{theme:Theme}) => ({
   alignSelf: 'center',
   width: '100%',
   height: 400,
