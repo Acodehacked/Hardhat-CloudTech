@@ -11,7 +11,7 @@ const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }:{theme:Theme}) => ({
     margin: 1,
   },
   [`& .${breadcrumbsClasses.ol}`]: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
 }));
 
@@ -25,6 +25,7 @@ export default function NavbarBreadcrumbs() {
       <Typography variant="body1" sx={{ color: 'text.primary', fontWeight: 600 }}>
         Home
       </Typography>
+      
     </StyledBreadcrumbs>
   );
 }

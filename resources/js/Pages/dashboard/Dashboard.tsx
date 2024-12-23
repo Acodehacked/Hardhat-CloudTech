@@ -18,6 +18,7 @@ import {
   datePickersCustomizations,
   treeViewCustomizations,
 } from '@/Pages/dashboard/theme/customizations';
+import { usePage } from '@inertiajs/react';
 
 const xThemeComponents = {
   ...chartsCustomizations,
@@ -26,12 +27,13 @@ const xThemeComponents = {
   ...treeViewCustomizations,
 };
 
-export default function Dashboard(props: { disableCustomTheme?: boolean }) {
+export default function Dashboard() {
+  const user = usePage().props?.auth.user;
   return (
-    <AppTheme {...props} themeComponents={xThemeComponents}>
+    <AppTheme  themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: 'flex' }}>
-        <SideMenu />
+        <SideMenu user={user} />
         <AppNavbar />
         {/* Main content */}
         <Box

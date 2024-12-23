@@ -11,6 +11,9 @@ import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import SideMenuMobile from './SideMenuMobile';
 import MenuButton from './MenuButton';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
+import { usePage } from '@inertiajs/react';
+import Sitemark from '@/Components/Common/Sitemark';
+import SitemarkIcon from '@/Components/Common/SitemarkIcon';
 
 const Toolbar = styled(MuiToolbar)({
   width: '100%',
@@ -30,7 +33,7 @@ const Toolbar = styled(MuiToolbar)({
 
 export default function AppNavbar() {
   const [open, setOpen] = React.useState(false);
-
+  const user = usePage().props?.auth.user;
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
@@ -61,18 +64,18 @@ export default function AppNavbar() {
           <Stack
             direction="row"
             spacing={1}
-            sx={{ justifyContent: 'center', mr: 'auto' }}
+            sx={{ justifyContent: 'center',alignItems:'center' , mr: 'auto' }}
           >
-            <CustomIcon />
-            <Typography variant="h4" component="h1" sx={{ color: 'text.primary' }}>
-              Dashboard
+            <img className='w-[35px] h-[28px]' src='/storage/logo.png' />
+            <Typography variant="h6" component="h1" sx={{ color: 'text.primary' }}>
+              Hardhat CloudTech
             </Typography>
           </Stack>
-          <ColorModeIconDropdown />
+          {/* <ColorModeIconDropdown /> */}
           <MenuButton aria-label="menu" onClick={toggleDrawer(true)}>
             <MenuRoundedIcon />
           </MenuButton>
-          <SideMenuMobile open={open} toggleDrawer={toggleDrawer} />
+          <SideMenuMobile user={user} open={open} toggleDrawer={toggleDrawer} />
         </Stack>
       </Toolbar>
     </AppBar>

@@ -13,8 +13,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import Sitemark from '../../../Components/Common/SitemarkIcon';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
+import { Link } from '@inertiajs/react';
 
-const StyledToolbar = styled(Toolbar)(({ theme }:{theme:Theme}) => ({
+const StyledToolbar = styled(Toolbar)(({ theme }: { theme: Theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -51,18 +52,21 @@ export default function AppAppBar() {
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             <Sitemark height={30} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <Button variant="text" color="info" size="small">
-                Features
-              </Button>
-              <Button variant="text" color="info" size="small">
-                Pricing
-              </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                FAQ
-              </Button>
-              <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
-                Blog
-              </Button>
+              <Link href='#Features'>
+                <Button variant="text" color="info" size="small">
+                  Features
+                </Button>
+              </Link>
+              <Link href='#Pricing'>
+                <Button variant="text" color="info" size="small">
+                  Pricing
+                </Button>
+              </Link>
+              <Link href='#FAQ'>
+                <Button variant="text" color="info" size="small" sx={{ minWidth: 0 }}>
+                  FAQ
+                </Button>
+              </Link>
             </Box>
           </Box>
           <Box
@@ -72,9 +76,11 @@ export default function AppAppBar() {
               alignItems: 'center',
             }}
           >
-            <Button color="primary" variant="text" size="small">
-              Sign in
-            </Button>
+            <Link href={route('login')}>
+              <Button color="primary" variant="text" size="small">
+                Sign in
+              </Button>
+            </Link>
             <Button color="primary" variant="contained" size="small">
               Sign up
             </Button>
@@ -107,21 +113,29 @@ export default function AppAppBar() {
                   </IconButton>
                 </Box>
 
-                <MenuItem>Features</MenuItem>
-                <MenuItem>Pricing</MenuItem>
-                <MenuItem>FAQ</MenuItem>
-                <MenuItem>Blog</MenuItem>
+                <Link href='#Features'>
+                  <MenuItem>Features</MenuItem>
+                </Link>
+                <Link href='#Pricing'>
+                  <MenuItem>Pricing</MenuItem>
+                </Link>
+                <Link href='#FAQ'>
+                  <MenuItem>FAQ</MenuItem>
+                </Link>
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>
                     Sign up
                   </Button>
                 </MenuItem>
-                <MenuItem>
-                  <Button color="primary" variant="outlined" fullWidth>
-                    Sign in
-                  </Button>
-                </MenuItem>
+                <Link href={route('login')}>
+                  <MenuItem>
+                    <Button color="primary" variant="outlined" fullWidth>
+                      Sign in
+                    </Button>
+                  </MenuItem>
+                </Link>
+
               </Box>
             </Drawer>
           </Box>

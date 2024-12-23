@@ -18,8 +18,9 @@ import { GoogleIcon, FacebookIcon } from './CustomIcons';
 import AppTheme from '../../shared-theme/AppTheme';
 import ColorModeSelect from '../../shared-theme/ColorModeSelect';
 import SitemarkIcon from '@/Components/Common/SitemarkIcon';
+import { useForm, usePage } from '@inertiajs/react';
 
-const Card = styled(MuiCard)(({ theme }:{theme:Theme}) => ({
+const Card = styled(MuiCard)(({ theme }: { theme: Theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignSelf: 'center',
@@ -38,7 +39,7 @@ const Card = styled(MuiCard)(({ theme }:{theme:Theme}) => ({
   }),
 }));
 
-const SignInContainer = styled(Stack)(({ theme }:{theme:Theme}) => ({
+const SignInContainer = styled(Stack)(({ theme }: { theme: Theme }) => ({
   height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
   minHeight: '100%',
   padding: theme.spacing(2),
@@ -61,13 +62,13 @@ const SignInContainer = styled(Stack)(({ theme }:{theme:Theme}) => ({
   },
 }));
 
-export default function SignIn(props: { disableCustomTheme?: boolean }) {
+export default function SignIn({ status }: { status?: string }) {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
-
+  const errormessage = usePage().props?.errors;
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -76,25 +77,31 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
     setOpen(false);
   };
 
+  const { data, setData, post, processing, errors, reset } = useForm({
+    email: '',
+    password: '',
+    remember: false,
+  });
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    validateInputs()
+    event.preventDefault();
     if (emailError || passwordError) {
-      event.preventDefault();
       return;
     }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    console.log(data.email, data.password)
+    post('/login', {
+      onFinish: () => {
+        reset('password')
+        console.log(status ?? '')
+      },
     });
   };
 
   const validateInputs = () => {
-    const email = document.getElementById('email') as HTMLInputElement;
-    const password = document.getElementById('password') as HTMLInputElement;
 
     let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    if (!data.email || !/\S+@\S+\.\S+/.test(data.email)) {
       setEmailError(true);
       setEmailErrorMessage('Please enter a valid email address.');
       isValid = false;
@@ -103,7 +110,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
       setEmailErrorMessage('');
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!data.password || data.password.length < 6) {
       setPasswordError(true);
       setPasswordErrorMessage('Password must be at least 6 characters long.');
       isValid = false;
@@ -114,14 +121,15 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
 
     return isValid;
   };
-
   return (
-    <AppTheme {...props}>
+    <AppTheme>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
         {/* <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} /> */}
         <Card variant="outlined">
-          <SitemarkIcon height={20} />
+          <Link href={'/'} underline='none'>
+            <SitemarkIcon height={20} />
+          </Link>
           <Typography
             component="h1"
             variant="h4"
@@ -129,16 +137,12 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
           >
             Sign in
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              gap: 2,
-            }}
+          {errormessage.email && (
+            <div className="mb-4 text-sm font-medium p-2 bg-red-100 rounded-md border-[0.01rem] border-red-900 text-red-600">
+              {errormessage.email}
+            </div>
+          )}
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2"
           >
             <FormControl>
               <FormLabel htmlFor="email">Email</FormLabel>
@@ -151,6 +155,8 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
                 placeholder="your@email.com"
                 autoComplete="email"
                 autoFocus
+                value={data.email}
+                onChange={(e) => setData('email', e.target.value)}
                 required
                 fullWidth
                 variant="outlined"
@@ -167,9 +173,11 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={data.password}
                 autoFocus
                 required
                 fullWidth
+                onChange={(e) => setData('password', e.target.value)}
                 variant="outlined"
                 color={passwordError ? 'error' : 'primary'}
               />
@@ -182,8 +190,8 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             <Button
               type="submit"
               fullWidth
+              disabled={processing}
               variant="contained"
-              onClick={validateInputs}
             >
               Sign in
             </Button>
@@ -196,18 +204,18 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
             >
               Forgot your password?
             </Link>
-          </Box>
-          <Divider>or</Divider>
+          </form>
+          {/* <Divider>or</Divider> */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Button
+            {/* <Button
               fullWidth
               variant="outlined"
               onClick={() => alert('Sign in with Google')}
               startIcon={<GoogleIcon />}
             >
               Sign in with Google
-            </Button>
-            
+            </Button> */}
+
             <Typography sx={{ textAlign: 'center' }}>
               Don&apos;t have an account?{' '}
               <Link

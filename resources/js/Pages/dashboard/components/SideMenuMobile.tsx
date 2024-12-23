@@ -11,13 +11,16 @@ import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
 import MenuButton from './MenuButton';
 import MenuContent from './MenuContent';
 import CardAlert from './CardAlert';
+import { User } from '@/types';
+import { Link } from '@inertiajs/react';
 
 interface SideMenuMobileProps {
+  user: User;
   open: boolean | undefined;
   toggleDrawer: (newOpen: boolean) => () => void;
 }
 
-export default function SideMenuMobile({ open, toggleDrawer }: SideMenuMobileProps) {
+export default function SideMenuMobile({ user, open, toggleDrawer }: SideMenuMobileProps) {
   return (
     <Drawer
       anchor="right"
@@ -49,23 +52,29 @@ export default function SideMenuMobile({ open, toggleDrawer }: SideMenuMobilePro
               sx={{ width: 24, height: 24 }}
             />
             <Typography component="p" variant="h6">
-              Riley Carter
+              {user.name}
             </Typography>
           </Stack>
-          <MenuButton showBadge>
+          {/* <MenuButton showBadge>
             <NotificationsRoundedIcon />
-          </MenuButton>
+          </MenuButton> */}
         </Stack>
         <Divider />
         <Stack sx={{ flexGrow: 1 }}>
           <MenuContent />
           <Divider />
         </Stack>
-        <CardAlert />
+        {/* <CardAlert /> */}
         <Stack sx={{ p: 2 }}>
-          <Button variant="outlined" fullWidth startIcon={<LogoutRoundedIcon />}>
-            Logout
-          </Button>
+          <Link
+            method="post"
+            href={route('logout')}
+            as="button">
+            <Button variant="contained" fullWidth startIcon={<LogoutRoundedIcon />}>
+              Logout
+            </Button>
+          </Link>
+
         </Stack>
       </Stack>
     </Drawer>

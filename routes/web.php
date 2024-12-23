@@ -13,9 +13,6 @@ Route::get('/login', function () {
     return Inertia::render('Auth/Login');
 })->name('login');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('dashboard/Dashboard');
-})->name('dashboard');
 
 
 

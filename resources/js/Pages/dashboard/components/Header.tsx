@@ -22,14 +22,16 @@ export default function Header() {
       }}
       spacing={2}
     >
-      <NavbarBreadcrumbs />
+      <div className='flex flex-col'>
+        <h3 className="font-bold text-[20px] mt-2">HardhatCloudTech</h3>
+        <NavbarBreadcrumbs />
+      </div>
       <Stack direction="row" sx={{ gap: 1 }}>
         <Search />
-        <CustomDatePicker />
+        {/* <CustomDatePicker /> */}
         <MenuButton showBadge aria-label="Open notifications">
           <NotificationsRoundedIcon />
         </MenuButton>
-        <ColorModeIconDropdown />
       </Stack>
     </Stack>
   );

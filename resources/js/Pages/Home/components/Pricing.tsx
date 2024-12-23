@@ -61,7 +61,7 @@ const tiers = [
 export default function Pricing() {
   return (
     <Container
-      id="pricing"
+      id="Pricing"
       sx={{
         pt: { xs: 4, sm: 12 },
         pb: { xs: 8, sm: 16 },
