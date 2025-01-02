@@ -62,7 +62,7 @@ export default function SideMenuMobile({ user, open, toggleDrawer }: SideMenuMob
         </Stack>
         <Divider />
         <Stack sx={{ flexGrow: 1 }}>
-          <MenuContent />
+          <MenuContent user={user} />
           <Divider />
         </Stack>
         <CardAlert />

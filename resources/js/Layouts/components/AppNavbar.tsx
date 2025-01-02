@@ -33,7 +33,7 @@ const Toolbar = styled(MuiToolbar)({
 
 export default function AppNavbar() {
   const [open, setOpen] = React.useState(false);
-  const user = usePage().props?.auth.user;
+  const user = usePage().props?.auth.user.data;
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };

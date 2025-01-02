@@ -27,7 +27,7 @@ const secondaryListItems = [
   { text: 'Settings', icon: <SettingsRoundedIcon />, link: '/settings', permission: [] },
 ];
 
-export default function MenuContent({ user }: { user: User }) {
+export default function MenuContent({user}: {user: User }) {
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
       <List dense>
