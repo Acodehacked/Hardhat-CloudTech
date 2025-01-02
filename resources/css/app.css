@@ -28,4 +28,16 @@
     .screen{
         @apply max-w-[1200px] mx-auto w-full;
     }
+    .fold-sm{
+        @apply flex md:flex-row flex-col gap-2; 
+    }
+    .fold-sm > *{
+        @apply w-full md:w-1/2;
+    }
+    .card{ 
+        @apply w-full p-5 rounded-xl border-[0.05rem] max-w-[900px] w-full mx-auto border-zinc-200 bg-white shadow-[0px_40px_20px_rgba(0,0,0,0.03)];
+    }
+    .card-title{
+        @apply text-lg font-semibold;
+    }
 }

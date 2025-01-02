@@ -14,18 +14,17 @@ export default function HighlightedCard() {
 
   return (
     <Card sx={{ height: '100%' }}>
-      <CardContent>
-        <InsightsRoundedIcon />
+      <CardContent className='items-end flex flex-col justify-end h-full'>
+        <InsightsRoundedIcon fontSize='large' />
         <Typography
-          component="h2"
+          component="h1"
           variant="subtitle2"
-          gutterBottom
-          sx={{ fontWeight: '600' }}
+          sx={{ fontWeight: '600',fontSize: '20px' }}
         >
-          Explore your data
+          Control Companies
         </Typography>
         <Typography sx={{ color: 'text.secondary', mb: '8px' }}>
-          Uncover performance and visitor insights with our data wizardry.
+          Edit Companies, Add new Companies and start your journey
         </Typography>
         <Button
           variant="contained"
@@ -34,7 +33,7 @@ export default function HighlightedCard() {
           endIcon={<ChevronRightRoundedIcon />}
           fullWidth={isSmallScreen}
         >
-          Get insights
+          Explore
         </Button>
       </CardContent>
     </Card>

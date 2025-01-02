@@ -1,8 +1,8 @@
 import * as React from 'react';
-import type {} from '@mui/x-date-pickers/themeAugmentation';
-import type {} from '@mui/x-charts/themeAugmentation';
-import type {} from '@mui/x-data-grid/themeAugmentation';
-import type {} from '@mui/x-tree-view/themeAugmentation';
+import type { } from '@mui/x-date-pickers/themeAugmentation';
+import type { } from '@mui/x-charts/themeAugmentation';
+import type { } from '@mui/x-data-grid/themeAugmentation';
+import type { } from '@mui/x-tree-view/themeAugmentation';
 import { alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -17,8 +17,9 @@ import {
   dataGridCustomizations,
   datePickersCustomizations,
   treeViewCustomizations,
-} from '@/Pages/dashboard/theme/customizations';
+} from '@/Layouts/theme/customizations';
 import { usePage } from '@inertiajs/react';
+import { User } from '@/types';
 
 const xThemeComponents = {
   ...chartsCustomizations,
@@ -27,15 +28,15 @@ const xThemeComponents = {
   ...treeViewCustomizations,
 };
 
-export default function Dashboard() {
-  const user = usePage().props?.auth.user;
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const user = usePage().props?.auth.user.data;
+  console.log(user)
   return (
-    <AppTheme  themeComponents={xThemeComponents}>
+    <AppTheme themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: 'flex' }}>
         <SideMenu user={user} />
         <AppNavbar />
-        {/* Main content */}
         <Box
           component="main"
           sx={(theme) => ({
@@ -52,8 +53,8 @@ export default function Dashboard() {
               mt: { xs: 8, md: 0 },
             }}
           >
-            <Header />
-            <MainGrid />
+
+            {children}
           </Stack>
         </Box>
       </Box>

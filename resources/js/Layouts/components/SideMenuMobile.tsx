@@ -27,6 +27,7 @@ export default function SideMenuMobile({ user, open, toggleDrawer }: SideMenuMob
       open={open}
       onClose={toggleDrawer(false)}
       sx={{
+        minWidth: '300px',
         zIndex: (theme) => theme.zIndex.drawer + 1,
         [`& .${drawerClasses.paper}`]: {
           backgroundImage: 'none',
@@ -64,7 +65,7 @@ export default function SideMenuMobile({ user, open, toggleDrawer }: SideMenuMob
           <MenuContent />
           <Divider />
         </Stack>
-        {/* <CardAlert /> */}
+        <CardAlert />
         <Stack sx={{ p: 2 }}>
           <Link
             method="post"

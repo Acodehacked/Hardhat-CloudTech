@@ -19,9 +19,6 @@ import AppTheme from '../../../shared-theme/AppTheme';
 import ColorModeSelect from '../../../shared-theme/ColorModeSelect';
 import SitemarkIcon from '@/Components/Common/SitemarkIcon';
 import { useForm, usePage } from '@inertiajs/react';
-import { Input } from '@/Components/ui/input';
-import { Label } from '@headlessui/react';
-import { X } from 'lucide-react';
 
 const Card = styled(MuiCard)(({ theme }: { theme: Theme }) => ({
   display: 'flex',
@@ -141,37 +138,50 @@ export default function SignIn({ status }: { status?: string }) {
             Sign in
           </Typography>
           {errormessage.email && (
-            <div className=" flex items-center justify-between text-sm font-medium py-1 px-2 bg-red-100/80 rounded-md border-[0.01rem] border-red-200 text-red-800">
-              <span className='p-2'>{errormessage.email}</span>
+            <div className="mb-4 text-sm font-medium p-2 bg-red-100 rounded-md border-[0.01rem] border-red-900 text-red-600">
+              {errormessage.email}
             </div>
           )}
           <form onSubmit={handleSubmit} className="flex flex-col gap-2"
           >
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-0">Email</label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              autoFocus
-              placeholder="your@email.com"
-              value={data.email}
-              required
-              onChange={(e) => setData('email', e.target.value)}
-            />
-
-            <label htmlFor="password" className="block text-sm mt-2 font-medium text-gray-700 mb-0">Password</label>
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="password"
-              autoFocus
-              placeholder="••••••"
-              value={data.password}
-              required
-              onChange={(e) => setData('password', e.target.value)}
-            />
+            <FormControl>
+              <FormLabel htmlFor="email">Email</FormLabel>
+              <TextField
+                error={emailError}
+                helperText={emailErrorMessage}
+                id="email"
+                type="email"
+                name="email"
+                placeholder="your@email.com"
+                autoComplete="email"
+                autoFocus
+                value={data.email}
+                onChange={(e) => setData('email', e.target.value)}
+                required
+                fullWidth
+                variant="outlined"
+                color={emailError ? 'error' : 'primary'}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <TextField
+                error={passwordError}
+                helperText={passwordErrorMessage}
+                name="password"
+                placeholder="••••••"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={data.password}
+                autoFocus
+                required
+                fullWidth
+                onChange={(e) => setData('password', e.target.value)}
+                variant="outlined"
+                color={passwordError ? 'error' : 'primary'}
+              />
+            </FormControl>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"

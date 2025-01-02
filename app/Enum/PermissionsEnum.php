@@ -9,6 +9,7 @@ enum PermissionsEnum: string
     
     case ManageAllEmployees = 'manage_all_employees';
     case ManageOwnEmployees = 'manage_own_Employees';
+    case ManageOwnProjects = 'manage_own_projects';
     //projects
     case AddProjectsPermission = 'add_projects';
     case UpdateProjectsPermission = 'update_projects';
