@@ -16,7 +16,7 @@ class ImageUploaderController extends Controller
         // Store the image in the 'public/uploads' directory
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('images', 'public');
-            return response()->json(['imageName' => basename($path)], 201); // Return the file name
+            return response()->json(['imageName' => basename($path)]); // Return the file name
         }
 
         return response()->json(['error' => 'No file uploaded'], 400);
