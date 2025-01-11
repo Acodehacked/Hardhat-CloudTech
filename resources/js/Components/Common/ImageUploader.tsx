@@ -9,32 +9,40 @@ import { PageProps } from '@/types';
 
 export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: React.Dispatch<React.SetStateAction<string>> }) {
     const [logo, setlogo] = useState<string | null>(null)
-    const { data, setData, post, progress } = useForm({
+    const pages = usePage();
+    const { data, setData, post, progress,errors } = useForm({
         'image': null as File | null,
         'name': Date.now().toString()
     })
     const submit = () => {
         setData('name', Date.now().toString())
         post('/image-upload', {
-            preserveScroll: true,
             onSuccess: (e) => {
                 console.log('Success');
                 console.log(e);
+                console.log(pages)
+            },
+            onError: (errorResponse) => {
+                // Handle the "No file uploaded" error
+                if (errorResponse.error) {
+                    alert(errorResponse.error); // Display the error message
+                }
             },
             onFinish: (e) => {
-                console.log("Completed");
+                console.log(pages)
+                console.log("Completed", e);
             }
         })
     }
 
     // image-upload
     return <div className="flex gap-1 flex-col">
-        {/* {error && <div className='bg-red-100 rounded-md p-4'>
+        {errors.image && <div className='bg-red-100 rounded-md p-4'>
             <h3 className='font-medium'>Please upload image Less than 2mb</h3>
-        </div>} */}
-        
+        </div>}
+
         <div className='img-box relative h-[100px]'>
-            <ProgressBar className={cn('absolute top-[50%] translate-y-[-50%] translate-x-[-50%] z-[99] left-[50%]',progress ? 'flex' : 'hidden')} strokeColor='#0066b3' progress={progress?.percentage ?? 0} strokeWidth={11} trackStrokeWidth={5} radius={30} />
+            <ProgressBar className={cn('absolute top-[50%] translate-y-[-50%] translate-x-[-50%] z-[99] left-[50%]', progress ? 'flex' : 'hidden')} strokeColor='#0066b3' progress={progress?.percentage ?? 0} strokeWidth={11} trackStrokeWidth={5} radius={30} />
             <img src={logo ? logo : '/storage/logo.png'} alt="logo" className={cn("w-full h-[100px] object-contain absolute left-0 top-0")} />
         </div>
         <div className="max-w-[800px] w-full flex flex-col gap-2 items-start">
