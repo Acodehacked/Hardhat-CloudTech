@@ -13,14 +13,24 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/Components/ui/popover"
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "@/Components/ui/command"
 import { format, set } from "date-fns"
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
 import { Label } from "@headlessui/react";
 import { Textarea } from "@/Components/ui/textarea";
 import ImageUploader from "@/Components/Common/ImageUploader";
-
+import { getCountryCode, getCountryData, getCountryDataList, getEmojiFlag } from 'countries-list'
 export default function AddAdmin() {
-
+    const error = usePage().props?.errors;
+    const countries = getCountryDataList();
+    const [open, setOpen] = useState(false)
     const [logoUploaded, setlogoUploaded] = useState('')
     const { data, setData, post, processing, errors, reset } = useForm({
         id: 0,
@@ -42,6 +52,7 @@ export default function AddAdmin() {
             ...data,
             'logo': logoUploaded
         })
+        console.log(error)
     }, [logoUploaded])
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
         const { name, value } = e.target;
@@ -53,16 +64,18 @@ export default function AddAdmin() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/admin/administrators')
+        post('/admin/administrators', {
+            preserveScroll: true
+        })
         console.log(errors);
         // Handle form submission
     };
     return <DashboardLayout>
-        <Header showBackButton title='Create Administrator' links={['Admin', 'Administrators', 'new']} />
+        <Header showBackButton title='Create Company Administrator' links={['Admin', 'Administrators', 'new']} />
         <div className="card">
             <CardContent>
-                <form onSubmit={handleSubmit}>
-                    <h3 className='card-title '>Add New Company</h3>
+                <form onSubmit={handleSubmit} className="">
+                    <h3 className='card-title '>Add New Company {logoUploaded}</h3>
                     <p className="mb-5 text-zinc-300 font-light">This adds new Company and also creates credentials for login</p>
                     <div className="fold-sm">
                         <div className="mb-4">
@@ -125,8 +138,55 @@ export default function AddAdmin() {
                                 <ImageUploader setlogoUploaded={setlogoUploaded} />
                             </div>
                         </div>
-                        <div className="mb-4">
-                            <label htmlFor="address" className="block mb-1 text-sm font-medium text-gray-700">
+                        <div className="mb-4 flex flex-col gap-2">
+                            <label htmlFor="user" className="block text-sm font-medium text-gray-700">
+                                Country
+                            </label>
+                            <Popover open={open} onOpenChange={setOpen}>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        role="combobox"
+                                        variant="outlined"
+                                        aria-expanded={open}
+                                        fullWidth
+                                        className="w-full flex justify-between"
+                                    >
+                                        <span className="w-full">{data.country != ''
+                                            ? data.country
+                                            : "Select Country..."}</span>
+                                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className="max-w-[300px] w-full p-0">
+                                    <Command>
+                                        <CommandInput className="p-2 m-2" placeholder="Search framework..." />
+                                        <CommandList>
+                                            <CommandEmpty>No Countries found.</CommandEmpty>
+                                            <CommandGroup className="p-2">
+                                                {countries.map((country, index) => (
+                                                    <CommandItem
+                                                        key={country.name}
+                                                        value={country.name}
+                                                        onSelect={(currentValue) => {
+                                                            setData({ ...data, country: currentValue === data.country ? "" : currentValue });
+                                                            setOpen(false)
+                                                        }}
+                                                    >
+                                                        <Check
+                                                            className={cn(
+                                                                "mr-2 h-4 w-4",
+                                                                data.country === country.name ? "opacity-100" : "opacity-0"
+                                                            )}
+                                                        />
+                                                        {country.name}
+                                                    </CommandItem>
+                                                ))}
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
+                                </PopoverContent>
+                            </Popover>
+                            <label htmlFor="address" className="block mt-2 text-sm font-medium text-gray-700">
                                 Address
                             </label>
                             <Textarea id="address"
@@ -134,7 +194,7 @@ export default function AddAdmin() {
                                 value={data.address}
                                 onChange={handleChange}
                                 placeholder="Ex: John Doe, 123 Main Street, Anytown, CA 12345" />
-                            <label htmlFor="website" className="block mt-2 mb-1 text-sm font-medium text-gray-700">
+                            <label htmlFor="website" className="block mt-2 text-sm font-medium text-gray-700">
                                 Website
                             </label>
                             <Input
@@ -144,25 +204,15 @@ export default function AddAdmin() {
                                 value={data.website}
                                 onChange={handleChange}
                             />
-                            <label htmlFor="user" className="block mt-2 mb-1 text-sm font-medium text-gray-700">
-                                Email
-                            </label>
-                            <Input
-                                id="user"
-                                name="user"
-                                type="email"
-                                value={data.email}
-                                onChange={handleChange}
-                            />
+
                         </div>
 
                     </div>
-
-
-
-                    <Button type="submit" variant="contained" color="primary">
-                        Submit
-                    </Button>
+                    <div className="w-full flex justify-end">
+                        <Button type="submit" variant="contained" color="primary">
+                            Add {data.name == '' ? 'Company' : data.name}
+                        </Button>
+                    </div>
                 </form>
             </CardContent>
         </div>

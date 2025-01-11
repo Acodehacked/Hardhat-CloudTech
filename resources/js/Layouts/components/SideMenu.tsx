@@ -69,7 +69,7 @@ export default function SideMenu({user}:{user:User}) {
             {user.name}
           </Typography>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            {user.email.length > 20 ? `${user.email.substring(0,20)}...` : user.email}
+            {user.email.length > 17 ? `${user.email.substring(0,17)}...` : user.email}
           </Typography>
         </Box>
         <OptionsMenu />

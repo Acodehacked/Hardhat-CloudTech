@@ -45,7 +45,7 @@ export default function MenuContent({user}: {user: User }) {
 
       <List dense>
         {secondaryListItems.map((item, index) => {
-          return <>
+          return <div key={index}>
             {(user.permissions.some(permission => item.permission.includes(permission)) || item.permission.length == 0) && <Link href={item.link} key={index}>
               <ListItem disablePadding sx={{ display: 'block' }}>
                 <ListItemButton>
@@ -54,7 +54,7 @@ export default function MenuContent({user}: {user: User }) {
                 </ListItemButton>
               </ListItem>
             </Link>}
-          </>
+          </div>
         })}
       </List>
     </Stack>
