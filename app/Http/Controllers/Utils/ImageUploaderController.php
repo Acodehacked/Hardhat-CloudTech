@@ -16,8 +16,8 @@ class ImageUploaderController extends Controller
             $imageName = $request->request->get('name') . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
             // return response()->json(['image' => $imageName]);
-            return back()->withErrors('Please Upload Image size less than 2mb');
-            // return back()->with(['success',$imageName]);
+            // return back()->withErrors('Please Upload Image size less than 2mb');
+            return back()->with(['success',$imageName]);
         } else {
             return back()->withErrors('Please Upload Image size less than 2mb');
         }

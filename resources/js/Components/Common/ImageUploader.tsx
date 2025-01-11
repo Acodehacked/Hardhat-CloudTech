@@ -14,7 +14,7 @@ export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: Re
         'image': null as File | null,
         'name': Date.now().toString()
     })
-    console.log(error)
+    console.log(error,flash)
     const submit = () => {
         setData('name', Date.now().toString())
         post('/image-upload', {
