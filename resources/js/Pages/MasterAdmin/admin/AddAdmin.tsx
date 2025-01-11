@@ -64,10 +64,12 @@ export default function AddAdmin() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/admin/administrators', {
-            preserveScroll: true
+        post('/admin/administrators/create', {
+            preserveScroll: true,
+            onSuccess:(e)=>{
+                console.log(e.props.flash.success)
+            }
         })
-        console.log(errors);
         // Handle form submission
     };
     return <DashboardLayout>
@@ -75,7 +77,8 @@ export default function AddAdmin() {
         <div className="card">
             <CardContent>
                 <form onSubmit={handleSubmit} className="">
-                    <h3 className='card-title '>Add New Company {logoUploaded}</h3>
+                    <h3 className='card-title flex gap-2'>Add New Company {data.logo != '' && <div className="bg-green-600 font-medium text-white rounded-sm p-1 text-sm">
+                        Logo uploaded</div>}</h3>
                     <p className="mb-5 text-zinc-300 font-light">This adds new Company and also creates credentials for login</p>
                     <div className="fold-sm">
                         <div className="mb-4">

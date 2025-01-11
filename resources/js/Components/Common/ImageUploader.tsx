@@ -9,6 +9,7 @@ import { PageProps } from '@/types';
 
 export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: React.Dispatch<React.SetStateAction<string>> }) {
     const [logo, setlogo] = useState<string | null>(null)
+    const [loaded, setloaded] = useState(false)
     const pages = usePage();
     const { data, setData, post, progress, errors, clearErrors } = useForm({
         'image': null as File | null,
@@ -18,20 +19,25 @@ export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: Re
         clearErrors()
         setData('name', Date.now().toString())
         post('/image-upload', {
-            onFinish: (e) => {
-                console.log(pages)
-                console.log("Completed", e);
+            preserveState: true,
+            preserveScroll: true,
+            onSuccess: (e) => {
+                console.log(e)
+                setloaded(true)
+                setlogoUploaded(e.props.flash.success ?? '')
+                console.log('Success fully')
             },
-            onSuccess: () => {
-                console.log('File uploaded successfully!');
-            },
+            onError: () => {
+                setloaded(false)
+                console.log("error")
+            }
         })
     }
 
     // image-upload
-    return <div className="flex gap-1 flex-col">
+    return <div id="23" className="flex gap-1 flex-col">
         {errors.image && <div className='bg-red-100 rounded-md p-4'>
-            <h3 className='font-medium'>Select an image</h3>
+            <h3 className='font-medium'>{errors.image}</h3>
         </div>}
 
         <div className='img-box relative h-[100px]'>
@@ -41,6 +47,7 @@ export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: Re
         <div className="max-w-[800px] w-full flex flex-col gap-2 items-start">
             <Input name='image' onChange={(e) => {
                 if (e.target.files) {
+                    setloaded(false)
                     setData('image', e.target.files[0])
                     setlogo(URL.createObjectURL(e.target.files[0]));
                     // setTimeout(()=>{
@@ -50,7 +57,7 @@ export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: Re
             }} accept=".jpg,.png,.webp" id="picture" type="file" />
             <span>Please click upload if the picture is selected</span>
             {/* <Progress value={progress?.percentage} className="w-[60%]" /> */}
-            <Button type='button' onClick={submit} variant='outlined'>Upload</Button>
+            <Button type='button' disabled={loaded} onClick={submit} variant='outlined'>{loaded ? 'Uploaded' : 'Upload'}</Button>
         </div>
     </div>
 }
