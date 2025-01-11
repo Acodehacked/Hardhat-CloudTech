@@ -5,22 +5,21 @@ import React, { useEffect, useState } from "react";
 import { Progress } from '../ui/progress';
 import ProgressBar from 'react-customizable-progressbar';
 import { Button } from '@mui/material';
+import { PageProps } from '@/types';
 
 export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: React.Dispatch<React.SetStateAction<string>> }) {
-    const [error, seterror] = useState<string | null>(null)
     const [logo, setlogo] = useState<string | null>(null)
     const { data, setData, post, progress } = useForm({
         'image': null as File | null,
         'name': Date.now().toString()
     })
-    console.log(error)
     const submit = () => {
         setData('name', Date.now().toString())
         post('/image-upload', {
             preserveScroll: true,
             onSuccess: (e) => {
-                console.log(e.props.flash);
-                seterror(e.props.flash.error)
+                console.log('Success');
+                console.log(e);
             },
             onFinish: (e) => {
                 console.log("Completed");
@@ -30,9 +29,9 @@ export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: Re
 
     // image-upload
     return <div className="flex gap-1 flex-col">
-        {error && <div className='bg-red-100 rounded-md p-4'>
+        {/* {error && <div className='bg-red-100 rounded-md p-4'>
             <h3 className='font-medium'>Please upload image Less than 2mb</h3>
-        </div>}
+        </div>} */}
         
         <div className='img-box relative h-[100px]'>
             <ProgressBar className={cn('absolute top-[50%] translate-y-[-50%] translate-x-[-50%] z-[99] left-[50%]',progress ? 'flex' : 'hidden')} strokeColor='#0066b3' progress={progress?.percentage ?? 0} strokeWidth={11} trackStrokeWidth={5} radius={30} />
