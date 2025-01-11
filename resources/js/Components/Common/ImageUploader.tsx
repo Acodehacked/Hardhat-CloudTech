@@ -8,13 +8,12 @@ import { Button } from '@mui/material';
 
 export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: React.Dispatch<React.SetStateAction<string>> }) {
     const error = usePage();
-    const { flash } = usePage();
     const [logo, setlogo] = useState<string | null>(null)
     const { data, setData, post, progress } = useForm({
         'image': null as File | null,
         'name': Date.now().toString()
     })
-    console.log(error,flash)
+    console.log(error)
     const submit = () => {
         setData('name', Date.now().toString())
         post('/image-upload', {
