@@ -10,7 +10,7 @@ import { PageProps } from '@/types';
 export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: React.Dispatch<React.SetStateAction<string>> }) {
     const [logo, setlogo] = useState<string | null>(null)
     const pages = usePage();
-    const { data, setData, post, progress,errors ,clearErrors} = useForm({
+    const { data, setData, post, progress, errors, clearErrors } = useForm({
         'image': null as File | null,
         'name': Date.now().toString()
     })
@@ -18,20 +18,12 @@ export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: Re
         clearErrors()
         setData('name', Date.now().toString())
         post('/image-upload', {
-            onError: (errorResponse) => {
-                // Handle the "No file uploaded" error
-                if (errorResponse.error) {
-                    alert(errorResponse.error); // Display the error message
-                }
-            },
             onFinish: (e) => {
                 console.log(pages)
                 console.log("Completed", e);
             },
-            onSuccess: async (e) => {
-                console.log('Success');
-                console.log(e);
-                console.log(pages)
+            onSuccess: () => {
+                console.log('File uploaded successfully!');
             },
         })
     }
