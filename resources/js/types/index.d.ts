@@ -58,5 +58,9 @@ export type PageProps<
             data: User;
         }
     };
+    flash:{
+        success: string | null;
+        error: string | null;
+    };
     ziggy: Config & { location: string };
 };
