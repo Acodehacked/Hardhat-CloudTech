@@ -7,7 +7,7 @@ import ProgressBar from 'react-customizable-progressbar';
 import { Button } from '@mui/material';
 
 export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: React.Dispatch<React.SetStateAction<string>> }) {
-    const error = usePage();
+    const error = usePage()?.flash ?? null;
     const [logo, setlogo] = useState<string | null>(null)
     const { data, setData, post, progress } = useForm({
         'image': null as File | null,
@@ -31,7 +31,7 @@ export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: Re
 
     // image-upload
     return <div className="flex gap-1 flex-col">
-        {error.flash.error && <div className='bg-red-100 rounded-md p-4'>
+        {error && <div className='bg-red-100 rounded-md p-4'>
             <h3 className='font-medium'>Please upload image Less than 2mb</h3>
         </div>}
         
