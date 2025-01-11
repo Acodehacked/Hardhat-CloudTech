@@ -31,7 +31,7 @@ export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: Re
 
     // image-upload
     return <div className="flex gap-1 flex-col">
-        {flash?.error && <div className='bg-red-100 rounded-md p-4'>
+        {error.flash.error && <div className='bg-red-100 rounded-md p-4'>
             <h3 className='font-medium'>Please upload image Less than 2mb</h3>
         </div>}
         
