@@ -10,18 +10,14 @@ import { PageProps } from '@/types';
 export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: React.Dispatch<React.SetStateAction<string>> }) {
     const [logo, setlogo] = useState<string | null>(null)
     const pages = usePage();
-    const { data, setData, post, progress,errors } = useForm({
+    const { data, setData, post, progress,errors ,clearErrors} = useForm({
         'image': null as File | null,
         'name': Date.now().toString()
     })
     const submit = () => {
+        clearErrors()
         setData('name', Date.now().toString())
         post('/image-upload', {
-            onSuccess: (e) => {
-                console.log('Success');
-                console.log(e);
-                console.log(pages)
-            },
             onError: (errorResponse) => {
                 // Handle the "No file uploaded" error
                 if (errorResponse.error) {
@@ -31,14 +27,19 @@ export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: Re
             onFinish: (e) => {
                 console.log(pages)
                 console.log("Completed", e);
-            }
+            },
+            onSuccess: async (e) => {
+                console.log('Success');
+                console.log(e);
+                console.log(pages)
+            },
         })
     }
 
     // image-upload
     return <div className="flex gap-1 flex-col">
         {errors.image && <div className='bg-red-100 rounded-md p-4'>
-            <h3 className='font-medium'>Please upload image Less than 2mb</h3>
+            <h3 className='font-medium'>Select an image</h3>
         </div>}
 
         <div className='img-box relative h-[100px]'>
