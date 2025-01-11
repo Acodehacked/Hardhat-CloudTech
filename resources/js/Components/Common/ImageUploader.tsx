@@ -7,7 +7,7 @@ import ProgressBar from 'react-customizable-progressbar';
 import { Button } from '@mui/material';
 
 export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: React.Dispatch<React.SetStateAction<string>> }) {
-    const error = usePage()?.flash ?? null;
+    const [error, seterror] = useState<string | null>(null)
     const [logo, setlogo] = useState<string | null>(null)
     const { data, setData, post, progress } = useForm({
         'image': null as File | null,
@@ -19,12 +19,11 @@ export default function ImageUploader({ setlogoUploaded }: { setlogoUploaded: Re
         post('/image-upload', {
             preserveScroll: true,
             onSuccess: (e) => {
-                console.log(e)
-                console.log(error);
+                console.log(e.props.flash);
+                seterror(e.props.flash.error)
             },
             onFinish: (e) => {
-                console.log("error", error);
-                setlogoUploaded(data.name ?? '')
+                console.log("Completed");
             }
         })
     }
