@@ -35,7 +35,10 @@
         @apply w-full md:w-1/2;
     }
     .card{ 
-        @apply w-full p-5 rounded-xl border-[0.05rem] max-w-[900px] w-full mx-auto border-zinc-200 bg-white shadow-[0px_40px_20px_rgba(0,0,0,0.03)];
+        @apply w-full overflow-hidden p-5 rounded-xl border-[0.05rem] max-w-[900px] w-full mx-auto border-zinc-200 bg-white shadow-[0px_40px_20px_rgba(0,0,0,0.03)];
+    }
+    .border-light{
+        @apply border-[0.05rem] border-zinc-200;
     }
     .card-title{
         @apply text-lg font-semibold;

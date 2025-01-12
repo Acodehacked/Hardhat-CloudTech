@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\Utils\ImageUploaderController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\User;
@@ -45,12 +46,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth'])->group(function () {
     //Master Admin Panel
     Route::middleware(AdminMiddleware::class)->group(function () {
-        Route::get('/admin/administrators', function () {
-            $users = DB::table('users')->get();
-            return Inertia::render('MasterAdmin/Admins',['users'=>$users]);
-        })->name('admininistrators');
-        Route::get('/admin/administrators/create',[AdministratorController::class, 'show'])->name('admininistrators');
-        Route::post('/admin/administrators',[AdministratorController::class, 'create'])->name('admininistrators');
+        Route::get('/admin/administrators', [CompanyController::class,'index'])->name('admininistrators.index');
+        Route::get('/admin/administrators/create',[CompanyController::class, 'show'])->name('admininistrators.show');
+        Route::put('/admin/administrators/create',[CompanyController::class, 'store'])->name('admininistrators.create');
     });
 
     Route::get('/dashboard', function () {

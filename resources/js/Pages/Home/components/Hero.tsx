@@ -12,7 +12,7 @@ import { visuallyHidden } from '@mui/utils';
 import { styled, Theme } from '@mui/material/styles';
 import { Input } from '@/Components/ui/input';
 
-const StyledBox = styled('div')(({ theme }:{theme:Theme}) => ({
+const StyledBox = styled('div')(({ theme }: { theme: Theme }) => ({
   alignSelf: 'center',
   width: '100%',
   height: 400,
@@ -52,10 +52,12 @@ export default function Hero() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          pt: { xs: 14, sm: 20 },
+          pt: { xs: 10, sm: 12 },
           pb: { xs: 8, sm: 12 },
         }}
       >
+        <img className='max-h-[150px] w-full object-cover mb-6 rounded-xl ' src='/storage/img1.jpg' />
+
         <Stack
           spacing={2}
           useFlexGap

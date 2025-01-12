@@ -30,7 +30,7 @@ const xThemeComponents = {
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const user = usePage().props?.auth.user.data;
-  console.log(user)
+  // console.log(user)
   return (
     <AppTheme themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />

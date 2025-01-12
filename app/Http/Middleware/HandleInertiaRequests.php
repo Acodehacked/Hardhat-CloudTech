@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'flash' => [
+                'image' => fn () => $request->session()->get('image') ?? null,
                 'success' => fn () => $request->session()->get('success') ?? null,
                 'error' => fn () => $request->session()->get('error') ?? null,
             ],

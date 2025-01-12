@@ -13,6 +13,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/Components/ui/popover"
+import { v4 as uuid } from "uuid"
 import {
     Command,
     CommandEmpty,
@@ -27,12 +28,15 @@ import { Label } from "@headlessui/react";
 import { Textarea } from "@/Components/ui/textarea";
 import ImageUploader from "@/Components/Common/ImageUploader";
 import { getCountryCode, getCountryData, getCountryDataList, getEmojiFlag } from 'countries-list'
+import { Image } from "@/types";
 export default function AddAdmin() {
     const error = usePage().props?.errors;
     const countries = getCountryDataList();
+    const [countrycode, setcountrycode] = useState('91')
     const [open, setOpen] = useState(false)
-    const [logoUploaded, setlogoUploaded] = useState('')
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const unique_id = uuid();
+    const [logoUploaded, setlogoUploaded] = useState<string | null>(null)
+    const { data, setData, put, processing, errors, reset, clearErrors } = useForm({
         id: 0,
         name: '',
         country: '',
@@ -40,35 +44,38 @@ export default function AddAdmin() {
         address: '',
         reg_id: '',
         phone: '',
-        logo: '',
+        image: '',
         email: '',
         since: '',
         website: '',
         description: '',
-        code: ''
+        code: unique_id.slice(0, 8)
     });
     useEffect(() => {
         setData({
             ...data,
-            'logo': logoUploaded
+            image: logoUploaded ?? ''
         })
-        console.log(error)
     }, [logoUploaded])
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
         const { name, value } = e.target;
+        if (name == 'phone') {
+            if ((value as string).length > 10) {
+                return
+            }
+        }
         setData({
             ...data,
             [name as string]: value
         });
+        clearErrors();
     };
-
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/admin/administrators/create', {
-            preserveScroll: true,
-            onSuccess:(e)=>{
-                console.log(e.props.flash.success)
-            }
+        put('/admin/administrators/create', {
+            onSuccess: (e) => {
+                console.log(e.props)
+            },
         })
         // Handle form submission
     };
@@ -77,10 +84,17 @@ export default function AddAdmin() {
         <div className="card">
             <CardContent>
                 <form onSubmit={handleSubmit} className="">
-                    <h3 className='card-title flex gap-2'>Add New Company {data.logo != '' && <div className="bg-green-600 font-medium text-white rounded-sm p-1 text-sm">
-                        Logo uploaded</div>}</h3>
-                    <p className="mb-5 text-zinc-300 font-light">This adds new Company and also creates credentials for login</p>
-                    <div className="fold-sm">
+                    <div className="flex items-center gap-2">
+                        {logoUploaded &&
+                            <img className="w-[70px] h-[50px] object-contain" src={`/storage/images/small/${logoUploaded}`} />
+                        }
+                        <div className="flex flex-col justify-center">
+                            <h3 className='card-title flex gap-2'>Add New Company {data.image != '' && <div className="bg-green-600 font-medium text-white rounded-sm p-1 text-sm">
+                                Logo uploaded</div>}</h3>
+                            <p className="text-zinc-300 font-light">This adds new Company and also creates credentials for login</p>
+                        </div>
+                    </div>
+                    <div className="fold-sm mt-3">
                         <div className="mb-4">
                             <label htmlFor="reg_id" className="block text-sm font-medium text-gray-700 mb-3">
                                 Registration ID
@@ -94,6 +108,20 @@ export default function AddAdmin() {
                                 value={data.reg_id}
                                 onChange={handleChange}
                             />
+                        </div>
+                        <div className="mb-4 gap-0 flex flex-col">
+                            <label htmlFor="since" className="block text-sm font-medium text-gray-700 mb-3">
+                                Company Since
+                            </label>
+                            <Input
+                                id="since"
+                                name="since"
+                                type="number"
+                                placeholder="eg : 20XX"
+                                value={data.since}
+                                onChange={handleChange}
+                            />
+                            {errors.since && <span className="text-red-800 mt-1 text-sm">{errors?.since}</span>}
                         </div>
                     </div>
                     <div className="fold-sm">
@@ -109,6 +137,8 @@ export default function AddAdmin() {
                                 value={data.name}
                                 onChange={handleChange}
                             />
+                            {errors.name && <span className="text-red-800 mt-1 text-sm">{errors?.name}</span>}
+
                         </div>
                         <div className="mb-4">
                             <label htmlFor="email" className="block text-sm mb-1 font-medium text-gray-700">
@@ -122,6 +152,8 @@ export default function AddAdmin() {
                                 value={data.email}
                                 onChange={handleChange}
                             />
+                            {errors.email && <span className="text-red-800 mt-1 text-sm">{errors?.email}</span>}
+
                         </div>
                     </div>
                     <div className="fold-sm">
@@ -134,12 +166,13 @@ export default function AddAdmin() {
                                 name="avatar"
                                 type="text"
                                 className="hidden"
-                                value={data.logo}
+                                value={data.image}
                                 onChange={handleChange}
                             />
                             <div className="card shadow-none rounded-md">
                                 <ImageUploader setlogoUploaded={setlogoUploaded} />
                             </div>
+                            {errors.image && <span className="text-red-800 mt-1 text-sm">{errors?.image}</span>}
                         </div>
                         <div className="mb-4 flex flex-col gap-2">
                             <label htmlFor="user" className="block text-sm font-medium text-gray-700">
@@ -170,9 +203,15 @@ export default function AddAdmin() {
                                                     <CommandItem
                                                         key={country.name}
                                                         value={country.name}
+                                                        aria-label={country?.name}
                                                         onSelect={(currentValue) => {
-                                                            setData({ ...data, country: currentValue === data.country ? "" : currentValue });
+                                                            // setData({ ...data, country: currentValue === data.country ? "" : currentValue });
+                                                            setData({
+                                                                ...data,
+                                                                country: currentValue === data.country ? "" : currentValue,
+                                                            })
                                                             setOpen(false)
+                                                            setcountrycode(`${getCountryData(country.iso2).phone[0]}`)
                                                         }}
                                                     >
                                                         <Check
@@ -189,6 +228,24 @@ export default function AddAdmin() {
                                     </Command>
                                 </PopoverContent>
                             </Popover>
+                            {errors.country && <span className="text-red-800 mt-1 text-sm">{errors?.country}</span>}
+
+                            <label htmlFor="phone" className="block mt-2 text-sm font-medium text-gray-700">
+                                Phone number
+                            </label>
+                            <div className="flex items-center gap-2">
+                                <span className="bg-indigo-600 p-2 rounded-md text-white">
+                                    +{countrycode}
+                                </span>
+                                <Input
+                                    id="phone"
+                                    name="phone"
+                                    type="number"
+                                    value={data.phone}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            {errors.phone && <span className="text-red-800 mt-1 text-sm">{errors?.phone}</span>}
                             <label htmlFor="address" className="block mt-2 text-sm font-medium text-gray-700">
                                 Address
                             </label>
@@ -197,6 +254,7 @@ export default function AddAdmin() {
                                 value={data.address}
                                 onChange={handleChange}
                                 placeholder="Ex: John Doe, 123 Main Street, Anytown, CA 12345" />
+                            {errors.address && <span className="text-red-800 mt-1 text-sm">{errors?.address}</span>}
                             <label htmlFor="website" className="block mt-2 text-sm font-medium text-gray-700">
                                 Website
                             </label>
@@ -207,7 +265,16 @@ export default function AddAdmin() {
                                 value={data.website}
                                 onChange={handleChange}
                             />
+                            {errors.website && <span className="text-red-800 mt-1 text-sm">{errors?.website}</span>}
 
+                            <Input
+                                id="code"
+                                name="code"
+                                type="text"
+                                value={data.code}
+                                disabled
+                                onChange={handleChange}
+                            />
                         </div>
 
                     </div>

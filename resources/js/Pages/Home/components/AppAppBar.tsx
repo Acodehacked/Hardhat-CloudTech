@@ -48,7 +48,7 @@ export default function AppAppBar() {
       }}
     >
       <Container maxWidth="lg">
-        <StyledToolbar className='bg-white/40' variant="dense" disableGutters>
+        <StyledToolbar className='bg-white/40' variant='dense' disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
             <Sitemark height={30} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

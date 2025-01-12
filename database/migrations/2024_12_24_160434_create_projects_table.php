@@ -20,10 +20,11 @@ return new class extends Migration
             $table->string('email',100);
             $table->string('phone');
             $table->string('website')->nullable();
-            $table->string('logo');
+            $table->string('image',500);
             $table->string('description')->nullable();
             $table->string('since');
             $table->string('code')->unique();
+            $table->timestamps();
         });
         Schema::create('projects', function (Blueprint $table) {
             $table->id();

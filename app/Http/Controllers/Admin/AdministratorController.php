@@ -9,11 +9,7 @@ use Inertia\Inertia;
 
 class AdministratorController extends Controller
 {
-    public function show()
-    {
-        $users = DB::table('users')->get();
-        return Inertia::render('MasterAdmin/admin/AddAdmin', ['users' => $users]);
-    }
+    
     public function create(Request $request)
     {
         $validated = $request->validate([
