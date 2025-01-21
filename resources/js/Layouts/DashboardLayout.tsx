@@ -19,7 +19,7 @@ import {
   treeViewCustomizations,
 } from '@/Layouts/theme/customizations';
 import { usePage } from '@inertiajs/react';
-import { User } from '@/types';
+import { Project, User } from '@/types';
 
 const xThemeComponents = {
   ...chartsCustomizations,
@@ -28,20 +28,23 @@ const xThemeComponents = {
   ...treeViewCustomizations,
 };
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({ children,projects }: {projects: Project[], children: React.ReactNode }) {
   const user = usePage().props?.auth.user.data;
   // console.log(user)
   return (
     <AppTheme themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
-      <Box sx={{ display: 'flex' }}>
-        <SideMenu user={user} />
-        <AppNavbar />
+      <Box sx={{ display: 'flex', flexDirection:'column'}}>
+        <AppNavbar projects={projects} />
         <Box
           component="main"
           sx={(theme) => ({
             flexGrow: 1,
             overflow: 'auto',
+            pt: {
+              xs : '10px',
+              md: '63px'
+            }
           })}
         >
           <Stack

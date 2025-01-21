@@ -13,8 +13,14 @@ import Typography from '@mui/material/Typography';
 import { styled, Theme } from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
+import PrimaryButton from '@/Components/PrimaryButton';
+import { useForm } from '@inertiajs/react';
+import InputLabel from '@/Components/InputLabel';
 
-const Card = styled(MuiCard)(({ theme }:{theme:Theme}) => ({
+import TextInput from '@/Components/TextInput';
+import InputError from '@/Components/InputError';
+
+const Card = styled(MuiCard)(({ theme }: { theme: Theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignSelf: 'center',
@@ -32,163 +38,93 @@ const Card = styled(MuiCard)(({ theme }:{theme:Theme}) => ({
   }),
 }));
 
-export default function SignInCard() {
-  const [emailError, setEmailError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-  const [open, setOpen] = React.useState(false);
+export default function Login({
+  status,
+  canResetPassword,
+}: {
+  status?: string;
+  canResetPassword: boolean;
+}) {
+  const { data, setData, post, processing, errors, reset } = useForm({
+    email: '',
+    password: '',
+    remember: false,
+  });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const submit: React.FormEventHandler = (e) => {
+    e.preventDefault();
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (emailError || passwordError) {
-      event.preventDefault();
-      return;
-    }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    post(route('login'), {
+      onFinish: () => reset('password'),
     });
   };
-
-  const validateInputs = () => {
-    const email = document.getElementById('email') as HTMLInputElement;
-    const password = document.getElementById('password') as HTMLInputElement;
-
-    let isValid = true;
-
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
-    }
-
-    if (!password.value || password.value.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage('');
-    }
-
-    return isValid;
-  };
-
   return (
-    <Card variant="outlined">
-      <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-        <SitemarkIcon />
-      </Box>
-      <Typography
-        component="h1"
-        variant="h4"
-        sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-      >
-        Sign in
-      </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        noValidate
-        sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 2 }}
-      >
-        <FormControl>
-          <FormLabel htmlFor="email">Email</FormLabel>
-          <TextField
-            error={emailError}
-            helperText={emailErrorMessage}
+    <Card className='bg-white'>
+      <h2 className='text-head'>Login</h2>
+      <form onSubmit={submit}>
+        <div>
+          <InputLabel htmlFor="email" value="Email" className='text-secondary-foreground font-medium' />
+
+          <TextInput
             id="email"
             type="email"
             name="email"
-            placeholder="your@email.com"
-            autoComplete="email"
-            autoFocus
-            required
-            fullWidth
-            variant="outlined"
-            color={emailError ? 'error' : 'primary'}
+            value={data.email}
+            className="mt-1 block w-full"
+            autoComplete="username"
+            isFocused={true}
+            onChange={(e) => setData('email', e.target.value)}
           />
-        </FormControl>
-        <FormControl>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <FormLabel htmlFor="password">Password</FormLabel>
-            <Link
-              component="button"
-              type="button"
-              onClick={handleClickOpen}
-              variant="body2"
-              sx={{ alignSelf: 'baseline' }}
-            >
-              Forgot your password?
-            </Link>
-          </Box>
-          <TextField
-            error={passwordError}
-            helperText={passwordErrorMessage}
-            name="password"
-            placeholder="••••••"
-            type="password"
+
+          <InputError message={errors.email} className="mt-2 text-danger font-medium" />
+        </div>
+
+        <div className="mt-4">
+          <InputLabel htmlFor="password" value="Password" className='text-secondary-foreground font-medium' />
+
+          <TextInput
             id="password"
+            type="password"
+            name="password"
+            value={data.password}
+            className="mt-1 block w-full"
             autoComplete="current-password"
-            autoFocus
-            required
-            fullWidth
-            variant="outlined"
-            color={passwordError ? 'error' : 'primary'}
+            onChange={(e) => setData('password', e.target.value)}
           />
-        </FormControl>
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Remember me"
-        />
-        <ForgotPassword open={open} handleClose={handleClose} />
-        <Button type="submit" fullWidth variant="contained" onClick={validateInputs}>
-          Sign in
-        </Button>
-        <Typography sx={{ textAlign: 'center' }}>
-          Don&apos;t have an account?{' '}
-          <span>
-            <Link
-              href="/material-ui/getting-started/templates/sign-in/"
-              variant="body2"
-              sx={{ alignSelf: 'center' }}
-            >
-              Sign up
-            </Link>
-          </span>
-        </Typography>
-      </Box>
-      <Divider>or</Divider>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Button
-          fullWidth
-          variant="outlined"
-          onClick={() => alert('Sign in with Google')}
-          startIcon={<GoogleIcon />}
-        >
-          Sign in with Google
-        </Button>
-        <Button
-          fullWidth
-          variant="outlined"
-          onClick={() => alert('Sign in with Facebook')}
-          startIcon={<FacebookIcon />}
-        >
-          Sign in with Facebook
-        </Button>
-      </Box>
+
+          <InputError message={errors.password} className="mt-2" />
+        </div>
+
+        <div className="mt-4 block">
+          <label className="flex items-center">
+            <Checkbox
+              name="remember"
+              checked={data.remember}
+              onChange={(e) =>
+                setData('remember', e.target.checked)
+              }
+            />
+            <span className="ms-2 text-sm text-secondary-foreground font-light">
+              Remember me
+            </span>
+          </label>
+        </div>
+
+        <div className="mt-4 flex items-center justify-end">
+          {/* {canResetPassword && (
+          <Link
+            href={route('password.request')}
+            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Forgot your password?
+          </Link>
+        )} */}
+
+          <PrimaryButton className="ms-4" disabled={processing}>
+            Log in
+          </PrimaryButton>
+        </div>
+      </form>
     </Card>
   );
 }

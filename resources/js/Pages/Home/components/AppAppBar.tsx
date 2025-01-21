@@ -44,13 +44,15 @@ export default function AppAppBar() {
         boxShadow: 0,
         bgcolor: 'transparent',
         backgroundImage: 'none',
-        mt: 'calc(var(--template-frame-height, 0px) + 28px)',
+        mt: 'calc(var(--template-frame-height, 0px) + 12px)',
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <StyledToolbar className='bg-white/40' variant='dense' disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-            <Sitemark height={30} />
+            <Link href='/'>
+              <Sitemark height={33} />
+            </Link>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Link href='#Features'>
                 <Button variant="text" color="info" size="small">
@@ -58,7 +60,7 @@ export default function AppAppBar() {
                 </Button>
               </Link>
               <Link href='#Pricing'>
-                <Button variant="text" color="info" size="small">
+                <Button variant="text" className='' color="info" size="small">
                   Pricing
                 </Button>
               </Link>
@@ -78,11 +80,11 @@ export default function AppAppBar() {
           >
             <Link href={route('login')}>
               <Button color="primary" variant="text" size="small">
-                Sign in
+                Log In
               </Button>
             </Link>
             <Button color="primary" variant="contained" size="small">
-              Sign up
+              Request a Demo
             </Button>
             {/* <ColorModeIconDropdown /> */}
           </Box>
@@ -125,17 +127,16 @@ export default function AppAppBar() {
                 <Divider sx={{ my: 3 }} />
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>
-                    Sign up
+                    Request a Demo
                   </Button>
                 </MenuItem>
                 <Link href={route('login')}>
                   <MenuItem>
                     <Button color="primary" variant="outlined" fullWidth>
-                      Sign in
+                      Log In
                     </Button>
                   </MenuItem>
                 </Link>
-
               </Box>
             </Drawer>
           </Box>

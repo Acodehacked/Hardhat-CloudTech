@@ -34,13 +34,7 @@ export default function Header({ title, links, showBackButton=false }: { title: 
           <NavbarBreadcrumbs links={links} />
         </div>
       </div>
-      <Stack direction="row" sx={{ display: {xs:'none', md:'flex'}, gap: 1 }}>
-        <Search />
-        {/* <CustomDatePicker /> */}
-        <MenuButton showBadge aria-label="Open notifications">
-          <NotificationsRoundedIcon />
-        </MenuButton>
-      </Stack>
+      
     </Stack>
   );
 }

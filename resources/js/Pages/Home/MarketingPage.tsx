@@ -11,13 +11,12 @@ import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import AppTheme from '../../shared-theme/AppTheme';
+import { Head } from '@inertiajs/react';
+import GuestHome from '@/Layouts/GuestHomeLayout';
 
-export default function MarketingPage(props: { disableCustomTheme?: boolean }) {
+export default function MarketingPage() {
   return (
-    <AppTheme {...props}>
-      <CssBaseline enableColorScheme />
-
-      <AppAppBar />
+    <GuestHome>
       <Hero />
       <div>
         <LogoCollection />
@@ -33,6 +32,6 @@ export default function MarketingPage(props: { disableCustomTheme?: boolean }) {
         <Divider />
         <Footer />
       </div>
-    </AppTheme>
+    </GuestHome>
   );
 }

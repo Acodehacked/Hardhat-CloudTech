@@ -4,29 +4,44 @@
 
 @layer base{
     :root {
-        --background: 0 0% 100%;
-        --foreground: 210 98% 48%;
-        --muted: 210 40% 96.1%;
-        --muted-foreground: 215.4 16.3% 46.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 222.2 47.4% 11.2%;
-        --border: 214.3 31.8% 91.4%;
-        --input: 214.3 31.8% 91.4%;
-        --card: 0 0% 100%;
-        --card-foreground: 222.2 47.4% 11.2%;
-        --primary: 222.2 47.4% 11.2%;
-        --primary-foreground: 210 40% 98%;
-        --secondary: 210 40% 96.1%;
-        --secondary-foreground: 222.2 47.4% 11.2%;
-        --accent: 210 40% 96.1%;
-        --accent-foreground: 222.2 47.4% 11.2%;
-        --destructive: 0 100% 50%;
-        --destructive-foreground: 210 40% 98%;
-        --ring: 215 20.2% 65.1%;
-        --radius: 0.5rem;
+        --background: 0 0% 98%; /* Cloud White */
+        --foreground: 222.2 20% 12%; /* Charcoal Black */
+        --muted: 210 15% 95%; /* Light Gray */
+        --muted-foreground: 222.2 16.3% 40%; /* Steel Gray */
+        --popover: 0 0% 98%; /* Cloud White */
+        --popover-foreground: 222.2 20% 12%; /* Charcoal Black */
+        --border: 214.3 20% 85%; /* Light Gray */
+        --input: 214.3 20% 85%; /* Light Gray */
+        --card: 0 0% 98%; /* Cloud White */
+        --card-foreground: 222.2 20% 12%; /* Charcoal Black */
+        --primary: 215 100% 30%; /* Navy Blue */
+        --primary-foreground: 210 100% 96%; /* Sky Blue */
+        --secondary: 210 40% 92%; /* Sky Blue (lighter tone) */
+        --secondary-foreground: 222.2 20% 12%; /* Charcoal Black */
+        --accent: 42 90% 56%; /* Golden Yellow */
+        --accent-foreground: 222.2 20% 12%; /* Charcoal Black */
+        --destructive: 0 85% 50%; /* Construction Orange */
+        --destructive-foreground: 210 100% 96%; /* Sky Blue */
+        --ring: 210 25% 70%; /* Steel Gray (lighter tone) */
+        --radius: 0.5rem; /* Default border radius */
       }
+    .text-hint{
+        @apply text-[#E67E22];
+    }
+    .bg{
+        @apply bg-[#F8F8F8];
+    }
+    .text-head{
+        @apply text-[30px] font-medium;
+    }
+    .text-sm1{
+        @apply text-[0.7rem]
+    }
+    .text-sm2{
+        @apply text-[0.85rem]
+    }
     .screen{
-        @apply max-w-[1200px] mx-auto w-full;
+        @apply max-w-[1200px] flex flex-col sm:pt-12 pt-10 sm:pb-12 pb-8  mx-auto w-full;
     }
     .fold-sm{
         @apply flex md:flex-row flex-col gap-2; 
@@ -42,5 +57,14 @@
     }
     .card-title{
         @apply text-lg font-semibold;
+    }
+    .hover-bod{
+        @apply px-2 py-2 hover:bg-zinc-100 rounded-md cursor-pointer;
+    }
+    .hover-txt{
+        @apply text-secondary-foreground text-[0.87rem] w-auto font-medium flex items-center gap-2;
+    }
+    .text-med{
+        @apply text-[1.05rem];
     }
 }
