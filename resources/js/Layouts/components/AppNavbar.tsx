@@ -42,7 +42,7 @@ const Toolbar = styled(MuiToolbar)({
   },
 });
 
-export default function AppNavbar({ projects }: { projects: Project[] }) {
+export default function AppNavbar({ projects }: { projects?: Project[] }) {
   const [open, setOpen] = React.useState(false);
   const [nav, setNavOpen] = React.useState(false);
   const [projectsopen, setprojectsopen] = React.useState(false);

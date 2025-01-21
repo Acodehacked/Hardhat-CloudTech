@@ -28,14 +28,14 @@ const xThemeComponents = {
   ...treeViewCustomizations,
 };
 
-export default function DashboardLayout({ children,projects }: {projects: Project[], children: React.ReactNode }) {
+export default function DashboardLayout({ children,projects }: {projects?: Project[], children: React.ReactNode }) {
   const user = usePage().props?.auth.user.data;
   // console.log(user)
   return (
     <AppTheme themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: 'flex', flexDirection:'column'}}>
-        <AppNavbar projects={projects} />
+        <AppNavbar projects={projects??[]} />
         <Box
           component="main"
           sx={(theme) => ({
