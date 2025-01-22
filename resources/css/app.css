@@ -66,7 +66,7 @@
     }
 
     .screen {
-        @apply max-w-[1200px] flex flex-col sm:pt-12 pt-10 sm:pb-12 pb-8 mx-auto w-full;
+        @apply max-w-[1700px] flex flex-col sm:pt-12 pt-10 sm:pb-12 pb-8 mx-auto w-full;
     }
 
     .fold-sm {
@@ -111,5 +111,8 @@
     }
     .slide p{
         @apply text-[1rem] text-[#7e7e7e];
+    }
+    .link{
+        @apply hover:underline-offset-2 hover:underline
     }
 }

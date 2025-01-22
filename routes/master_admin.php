@@ -22,22 +22,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::middleware(['auth'])->group(function () {
-    Route::permanentRedirect('/admin/login', '/dashboard');
-    //Master Admin Panel
-
-
-
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-    Route::post('/image-upload', [ImageUploaderController::class, 'store'])->name('image-upload');
-    Route::get('/profile', [ProjectController::class, 'index'])->name('projects.view');
-
-    Route::get('/projects', [ProjectController::class, 'index'])->name('projects.view');
-    //     Route::get('verify-email', EmailVerificationPromptController::class)
-    //         ->name('verification.notice');
-
-
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->name('logout');
+    Route::middleware(AdminMiddleware::class)->group(function () {
+        Route::get('/companies', [CompanyController::class, 'index'])->name('admininistrators.index');
+        Route::post('/companies', [CompanyController::class, 'table']);
+        Route::delete('/companies/{company}', [CompanyController::class, 'delete']);
+        Route::get('/companies/create', [CompanyController::class, 'show'])->name('admininistrators.show');
+        Route::put('/companies/create', [CompanyController::class, 'store'])->name('admininistrators.create');
+    });
 });

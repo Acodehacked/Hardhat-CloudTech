@@ -18,7 +18,7 @@ import {
   datePickersCustomizations,
   treeViewCustomizations,
 } from '@/Layouts/theme/customizations';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { Project, User } from '@/types';
 
 const xThemeComponents = {
@@ -58,6 +58,13 @@ export default function DashboardLayout({ children,projects }: {projects?: Proje
           >
 
             {children}
+            <footer className='max-w-[1700px] md:flex-row flex-col gap-4 pt-10 w-full flex justify-between'>
+                <span className='text-secondary-foreground/50'>HardhatcloudTech - 2024 &copy; all rights reserved</span>
+                <div className='flex  gap-2 text-primary/80'>
+                  <Link className='link active' href={'/terms-conditions'}>Terms & Conditions</Link>
+                  <Link className='link active' href={'/privacy-policy'}>Privacy Policy</Link>
+                </div>
+            </footer>
           </Stack>
         </Box>
       </Box>

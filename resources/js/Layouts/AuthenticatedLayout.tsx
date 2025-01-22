@@ -174,6 +174,7 @@ export default function AuthenticatedLayout({
             )}
 
             <main>{children}</main>
+            
         </div>
     );
 }

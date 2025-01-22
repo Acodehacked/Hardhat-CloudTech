@@ -79,6 +79,7 @@ export default function Content() {
             );
           })}
         </AnimatePresence>
+        
       </div>
       <div className="flex text-zinc-500/40 items-center gap-2">
         <ChevronLeft className='p-1 cursor-pointer' size={34} onClick={()=>setCurrentIndex((current)=>current!=0 ? current-1 : 0)} />

@@ -9,6 +9,13 @@ export interface User {
     permissions: string[];
     roles: string[];
 }
+export interface LaravelPaginationMeta {
+    current_page: number,
+    from: number,
+    per_page: number,
+    to: number,
+    total: number
+}
 export interface Company {
     id: number;
     name: string;

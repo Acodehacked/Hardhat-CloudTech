@@ -56,13 +56,13 @@ export default function AppNavbar({ projects }: { projects?: Project[] }) {
     setNavOpen(false)
   });
   const ToolsRef = React.useRef(null);
-  useClickOutside(ToolsRef, () => {
-    setOpen(false)
-  });
-  const Projectbuttonref = React.useRef(null);
-  useClickOutside(Projectbuttonref, () => {
-    setprojectsopen(false)
-  });
+  // useClickOutside(ToolsRef, () => {
+  //   setOpen(false)
+  // });
+  const projectcard = React.useRef(null);
+  // useClickOutside(Projectbuttonref, () => {
+  //   setprojectsopen(false)
+  // });
   return (
     <nav className='w-full fixed top-0 left-0 right-0 text-zinc-300 bg-zinc-900 flex z-[999]'>
       <Link href={'/dashboard'} className='bg-primary px-2 flex items-center'><HomeIcon className='text-white' /></Link>
@@ -75,7 +75,7 @@ export default function AppNavbar({ projects }: { projects?: Project[] }) {
             Hardhat CloudTech
           </h1>
         </div>
-        <div ref={Projectbuttonref} className='relative md:ms-0 ms-auto'>
+        <div className='relative md:ms-0 ms-auto'>
           <motion.div
             whileTap={{ opacity: 0.8 }}
             onClick={() => setprojectsopen(((prev) => !prev))}
@@ -87,75 +87,90 @@ export default function AppNavbar({ projects }: { projects?: Project[] }) {
             </div>
             <ArrowDropDown />
           </motion.div>
-          <div
-            className={cn('sm:absolute fixed left-0 card text-[15px] sm:top-[65px] top-0 sm:rounded-md rounded-none shadow-xl bg-white min-h-[300px] min-w-[400px] px-3 py-2 z-[999]', projectsopen ? '' : 'hidden')}>
-            <div id='overscroll' className="text-zinc-800 flex md:pe-2 flex-col gap-2 sm:max-h-[500px] max-h-full md:h-auto h-full overflow-y-scroll ">
-              <div className='flex w-full justify-between items-center mt-2'>
-                <span className='sm:text-[1rem] text-[2rem] '>Recent Projects</span>
-                <X onClick={() => setprojectsopen(false)} className='p-1 hover:bg-zinc-200 rounded-md sm:hidden' size={45} />
-              </div>
-              <div className="flex hover-bod bg-gray-50 gap-2 ">
-                <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
-                <div className="flex flex-col">
-                  <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
-                  <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
-                  <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
-                </div>
-              </div>
-              <div className="flex hover-bod bg-gray-50 gap-2 ">
-                <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
-                <div className="flex flex-col">
-                  <h4 className='font-medium text-foreground text-med '>Project 00-01</h4>
-                  <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
-                  <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
-                </div>
-              </div>
-              <div className="flex hover-bod bg-gray-50 gap-2 ">
-                <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
-                <div className="flex flex-col">
-                  <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
-                  <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
-                  <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
-                </div>
-              </div>
-              <div className="flex hover-bod bg-gray-50 gap-2 ">
-                <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
-                <div className="flex flex-col">
-                  <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
-                  <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
-                  <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
-                </div>
-              </div>
-              <div className="flex hover-bod bg-gray-50 gap-2 ">
-                <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
-                <div className="flex flex-col">
-                  <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
-                  <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
-                  <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
-                </div>
-              </div>
-              <div className="flex hover-bod bg-gray-50 gap-2 ">
-                <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
-                <div className="flex flex-col">
-                  <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
-                  <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
-                  <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
-                </div>
-              </div>
-              <div className="flex hover-bod bg-gray-50 gap-2 ">
-                <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
-                <div className="flex flex-col">
-                  <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
-                  <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
-                  <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
-                </div>
-              </div>
+          <AnimatePresence>
+            {projectsopen && <motion.div
+              initial={{ opacity: 0, pointerEvents: 'none' }}
+              exit={{ opacity: 0, pointerEvents: 'none' }}
+              animate={{ opacity: 1, pointerEvents: 'all' }}
+              transition={{ duration: 0.1 }}
+              ref={projectcard}
+              onClick={(e) => {
+                console.log(e.target)
+                console.log(projectcard.current)
+                if (e.target == projectcard.current) { setprojectsopen(false) }
+              }}
+              className={cn('fixed bg-[rgba(0,0,0,0.5)] backdrop-blur-sm left-0 text-[15px] right-0 bottom-0 top-0 sm:rounded-md rounded-none shadow-xl min-h-[300px] min-w-[400px] px-3 py-2 z-[99] w-full h-full flex justify-center items-center')}>
+              <div className="card">
+                <div id='overscroll' className="text-zinc-800 flex md:pe-2 flex-col  gap-2 sm:max-h-[500px] max-h-full md:h-auto h-full overflow-y-scroll ">
+                  <div className='flex w-full justify-between items-center mt-2'>
+                    <span className='sm:text-[1rem] text-[2rem] '>Recent Projects</span>
+                    <X onClick={() => setprojectsopen(false)} className='p-1 hover:bg-zinc-200 rounded-md sm:hidden' size={45} />
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="flex hover-bod bg-gray-50 gap-2 ">
+                      <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
+                      <div className="flex flex-col">
+                        <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
+                        <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
+                        <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
+                      </div>
+                    </div>
+                    <div className="flex hover-bod bg-gray-50 gap-2 ">
+                      <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
+                      <div className="flex flex-col">
+                        <h4 className='font-medium text-foreground text-med '>Project 00-01</h4>
+                        <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
+                        <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
+                      </div>
+                    </div>
+                    <div className="flex hover-bod bg-gray-50 gap-2 ">
+                      <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
+                      <div className="flex flex-col">
+                        <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
+                        <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
+                        <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
+                      </div>
+                    </div>
+                    <div className="flex hover-bod bg-gray-50 gap-2 ">
+                      <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
+                      <div className="flex flex-col">
+                        <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
+                        <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
+                        <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
+                      </div>
+                    </div>
+                    <div className="flex hover-bod bg-gray-50 gap-2 ">
+                      <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
+                      <div className="flex flex-col">
+                        <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
+                        <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
+                        <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
+                      </div>
+                    </div>
+                    <div className="flex hover-bod bg-gray-50 gap-2 ">
+                      <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
+                      <div className="flex flex-col">
+                        <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
+                        <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
+                        <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
+                      </div>
+                    </div>
+                    <div className="flex hover-bod bg-gray-50 gap-2 ">
+                      <img src={'/storage/bd.jpg'} className='w-[50px] object-cover rounded-md h-full' />
+                      <div className="flex flex-col">
+                        <h4 className='font-medium text-foreground text-med '>Project 00-00</h4>
+                        <h4 className='text-zinc-400 flex items-center gap-2'>Building Contruction Work</h4>
+                        <h4 className=' flex items-center gap-2 text-primary'><FaLocationDot /> USA</h4>
+                      </div>
+                    </div>
+                  </div>
 
-            </div>
-          </div>
+                </div>
+              </div>
+            </motion.div>}
+          </AnimatePresence>
         </div>
         <motion.div
-          ref={ToolsRef}
           whileTap={{ opacity: 0.8 }} onClick={() => setOpen(((prev) => !prev))} className='flex items-center select-none cursor-pointer hover:bg-black transition-all rounded-md duration-100 gap-2 bg-zinc-800 px-3 md:py-1 py-3'>
           <BoxIcon className='md:flex hidden' />
           <IoGrid className='flex md:hidden' />
@@ -167,24 +182,47 @@ export default function AppNavbar({ projects }: { projects?: Project[] }) {
 
         </motion.div>
       </div>
-      <div
-        className={cn('absolute text-[15px] top-[66px] w-full shadow-md bg-background md:overflow-visible overflow-y-scroll max-h-[100vh-60px] h-full min-h-[300px] left-0 right-0 z-[999]', open ? '' : 'hidden')}>
-        <div className="screen py-4 text-zinc-800 grid md:grid-cols-3 md:px-0 px-5 gap-5 h-full">
-          {ADMIN_TOOLS.map((item, index) => {
-            return <div key={index}>
-              <h1 className='text-head text-xl border-b-[0.2rem] border-b-zinc-500 p-2'>{item.title}</h1>
-              <div className="flex mt-2 flex-col gap-1">
-                {item.items.map((miniitem, index) => {
-                  return <Link href={miniitem.route} className='px-3 group py-1 flex items-center gap-2' key={index}>
-                    <StarIcon className='text-[16px] opacity-10 group-hover:opacity-40' size={14} />
-                    <span >{miniitem.title}</span>
-                  </Link>
+      <AnimatePresence>
+        {open && <motion.div
+          initial={{ opacity: 0, pointerEvents: 'none' }}
+          exit={{ opacity: 0, pointerEvents: 'none' }}
+          animate={{ opacity: 1, pointerEvents: 'all' }}
+          transition={{ duration: 0.1 }}
+          ref={ToolsRef}
+          onClick={(e) => {
+            if (e.target == ToolsRef.current) { setOpen(false) }
+          }}
+          className={cn('fixed bg-[rgba(0,0,0,0.5)] left-0 text-[15px] right-0 bottom-0 top-0 sm:rounded-md rounded-none shadow-xl min-h-[300px] min-w-[400px] px-3 py-2 z-[99] w-full h-full flex justify-center items-center')}>
+          {open && <motion.div
+              initial={{ opacity: 0, y: -500, pointerEvents: 'none' }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              animate={{ opacity: 1, y: 0, pointerEvents: 'all' }}
+              exit={{ opacity: 0, y: -100, pointerEvents: 'none' }}
+              className={cn('sm:h-auto h-full  text-zinc-800 md:overflow-visible overflow-y-scroll fixed left-0 md:px-10 px-4 gap-5 py-5 pb-10 rounded-b-3xl right-0 top-0 bg-white z-[99] ')}>
+              <h3 className='md:hidden mb-3 flex justify-between items-center text-xl text-secondary-foreground p-5 border-b-[0.1rem] border-zinc-200'>
+                <span>Tools</span>
+                <X className='p-1' onClick={()=>setOpen(false)} size={40} />
+              </h3>
+              <div
+                className="grid md:grid-cols-3 gap-4">
+                {ADMIN_TOOLS.map((item, index) => {
+                  return <div key={index}>
+                    <h1 className='text-head text-xl border-b-[0.2rem] border-b-zinc-500 p-2'>{item.title}</h1>
+                    <div className="flex mt-2 flex-col gap-1">
+                      {item.items.map((miniitem, index) => {
+                        return <Link href={miniitem.route} className='px-3 group py-1 flex items-center gap-2' key={index}>
+                          <StarIcon className='text-[16px] opacity-10 group-hover:opacity-40' size={14} />
+                          <span >{miniitem.title}</span>
+                        </Link>
+                      })}
+                    </div>
+                  </div>
                 })}
               </div>
-            </div>
-          })}
-        </div>
-      </div>
+            </motion.div>}
+        </motion.div>}
+      </AnimatePresence>
+
       <Stack direction="row" sx={{ display: { xs: 'flex', md: 'flex', alignItems: 'center', paddingRight: '20px' }, gap: 1 }}>
         <div className='md:flex hidden items-center ps-2 gap-3'>
           <Search />

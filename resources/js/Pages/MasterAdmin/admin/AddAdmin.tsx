@@ -39,6 +39,7 @@ export default function AddAdmin() {
     const { data, setData, put, processing, errors, reset, clearErrors } = useForm({
         id: 0,
         name: '',
+        cc: '91',
         country: '',
         city: '',
         address: '',
@@ -211,6 +212,7 @@ export default function AddAdmin() {
                                                             // setData({ ...data, country: currentValue === data.country ? "" : currentValue });
                                                             setData({
                                                                 ...data,
+                                                                cc: `${getCountryData(country.iso2).phone[0]}`,
                                                                 country: currentValue === data.country ? "" : currentValue,
                                                             })
                                                             setOpen(false)

@@ -11,7 +11,7 @@ export default function Welcome() {
             <GuestHome logged={false}>
                 <Head title="Home" />
                 <section className='flex flex-col max-h-[100vh] h-full pt-14 relative overflow-hidden'>
-                    <div className='h-full text-white md:bg-transparent bg-primary py-10 md:absolute max-w-[1200px] w-full mx-auto top-0 left-0 bottom-0 z-[2] right-0 justify-center flex flex-col items-start p-3'>
+                    <div className='h-full text-white md:bg-transparent bg-primary py-10 md:absolute max-w-[1700px] w-full mx-auto top-0 left-0 bottom-0 z-[2] right-0 justify-center flex flex-col items-start p-3'>
                         <p>100+ Success Stories</p>
                         <h2 className='text-[38px] font-bold md:max-w-[600px]'>Building Smarter Construction Management Solutions</h2>
                         <div className='flex gap-3 mt-5'>

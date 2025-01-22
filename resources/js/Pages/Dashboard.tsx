@@ -20,6 +20,8 @@ import {
 } from '@/Layouts/theme/customizations';
 import { Head, usePage } from '@inertiajs/react';
 import DashboardLayout from '@/Layouts/DashboardLayout';
+import CustomButton from '@/Components/User/CustomButton';
+import { ChevronRight } from 'lucide-react';
 
 const xThemeComponents = {
   ...chartsCustomizations,
@@ -30,11 +32,12 @@ const xThemeComponents = {
 export default function Dashboard() {
   return (<>
     <Head>
-      <title>Dashboard</title>
+      <title>Dashboard;</title>
       <meta name="description" content="Your page description" />
     </Head>
     <DashboardLayout >
       <Header title='Dashboard' links={['Dashboard', 'Home']} />
+      <CustomButton title='Helllo' variant='secondary' icon={<ChevronRight size={18} />} />
       <MainGrid />
     </DashboardLayout>
   </>
