@@ -10,6 +10,7 @@ import ThumbUpAltRoundedIcon from '@mui/icons-material/ThumbUpAltRounded';
 
 import { SitemarkIcon } from './CustomIcons';
 import Sitemark from '@/Components/Common/Sitemark';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const items = [
   {
@@ -79,7 +80,11 @@ export default function Content() {
           })}
         </AnimatePresence>
       </div>
-      <span className='text-zinc-500/40'>{currentIndex+1} / {items.length +1}</span>
+      <div className="flex text-zinc-500/40 items-center gap-2">
+        <ChevronLeft className='p-1 cursor-pointer' size={34} onClick={()=>setCurrentIndex((current)=>current!=0 ? current-1 : 0)} />
+        <span className=''>{currentIndex + 1} / {items.length}</span>
+        <ChevronRight className='p-1 cursor-pointer' size={34} onClick={()=>setCurrentIndex((current)=>current!=items.length-1 ? current+1 : items.length-1)} />
+      </div>
     </div>
   );
 }

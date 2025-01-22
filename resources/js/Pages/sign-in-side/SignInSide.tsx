@@ -18,7 +18,6 @@ export default function SignInSide(props: { disableCustomTheme?: boolean }) {
           sx={{
             justifyContent: 'center',
             gap: { xs: 6, sm: 12 },
-            p: 2,
             mx: 'auto',
           }}
         >
