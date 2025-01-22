@@ -213,9 +213,9 @@ export default function AppNavbar({ projects }: { projects?: Project[] }) {
                 <div className='hover-bod'>
                   <h4 className='hover-txt'><Lock size={16} /> Change Password</h4>
                 </div>
-                <div className='hover-bod'>
+                <Link href={'/logout'} method='post' className='hover-bod'>
                   <h4 className='hover-txt'><LogOutIcon size={16} /> Logout</h4>
-                </div>
+                </Link>
               </div>
 
             </motion.div>}

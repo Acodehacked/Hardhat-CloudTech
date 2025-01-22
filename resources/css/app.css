@@ -1,70 +1,115 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base{
+@layer base {
     :root {
-        --background: 0 0% 98%; /* Cloud White */
-        --foreground: 222.2 20% 12%; /* Charcoal Black */
-        --muted: 210 15% 95%; /* Light Gray */
-        --muted-foreground: 222.2 16.3% 40%; /* Steel Gray */
-        --popover: 0 0% 98%; /* Cloud White */
-        --popover-foreground: 222.2 20% 12%; /* Charcoal Black */
-        --border: 214.3 20% 85%; /* Light Gray */
-        --input: 214.3 20% 85%; /* Light Gray */
-        --card: 0 0% 98%; /* Cloud White */
-        --card-foreground: 222.2 20% 12%; /* Charcoal Black */
-        --primary: 215 100% 30%; /* Navy Blue */
-        --primary-foreground: 210 100% 96%; /* Sky Blue */
-        --secondary: 210 40% 92%; /* Sky Blue (lighter tone) */
-        --secondary-foreground: 222.2 20% 12%; /* Charcoal Black */
-        --accent: 42 90% 56%; /* Golden Yellow */
-        --accent-foreground: 222.2 20% 12%; /* Charcoal Black */
-        --destructive: 0 85% 50%; /* Construction Orange */
-        --destructive-foreground: 210 100% 96%; /* Sky Blue */
-        --ring: 210 25% 70%; /* Steel Gray (lighter tone) */
-        --radius: 0.5rem; /* Default border radius */
-      }
-    .text-hint{
+        --background: 0 0% 98%;
+        /* Cloud White */
+        --foreground: 222.2 20% 12%;
+        /* Charcoal Black */
+        --muted: 210 15% 95%;
+        /* Light Gray */
+        --muted-foreground: 222.2 16.3% 40%;
+        /* Steel Gray */
+        --popover: 0 0% 98%;
+        /* Cloud White */
+        --popover-foreground: 222.2 20% 12%;
+        /* Charcoal Black */
+        --border: 214.3 20% 85%;
+        /* Light Gray */
+        --input: 214.3 20% 85%;
+        /* Light Gray */
+        --card: 0 0% 98%;
+        /* Cloud White */
+        --card-foreground: 222.2 20% 12%;
+        /* Charcoal Black */
+        --primary: 215 100% 30%;
+        /* Navy Blue */
+        --primary-foreground: 210 100% 96%;
+        /* Sky Blue */
+        --secondary: 210 40% 92%;
+        /* Sky Blue (lighter tone) */
+        --secondary-foreground: 222.2 20% 12%;
+        /* Charcoal Black */
+        --accent: 42 90% 56%;
+        /* Golden Yellow */
+        --accent-foreground: 222.2 20% 12%;
+        /* Charcoal Black */
+        --destructive: 0 85% 50%;
+        /* Construction Orange */
+        --destructive-foreground: 210 100% 96%;
+        /* Sky Blue */
+        --ring: 210 25% 70%;
+        /* Steel Gray (lighter tone) */
+        --radius: 0.5rem;
+        /* Default border radius */
+    }
+
+    .text-hint {
         @apply text-[#E67E22];
     }
-    .bg{
+
+    .bg {
         @apply bg-[#F8F8F8];
     }
-    .text-head{
+
+    .text-head {
         @apply text-[30px] font-medium;
     }
-    .text-sm1{
+
+    .text-sm1 {
         @apply text-[0.7rem]
     }
-    .text-sm2{
+
+    .text-sm2 {
         @apply text-[0.85rem]
     }
-    .screen{
-        @apply max-w-[1200px] flex flex-col sm:pt-12 pt-10 sm:pb-12 pb-8  mx-auto w-full;
+
+    .screen {
+        @apply max-w-[1200px] flex flex-col sm:pt-12 pt-10 sm:pb-12 pb-8 mx-auto w-full;
     }
-    .fold-sm{
-        @apply flex md:flex-row flex-col gap-2; 
+
+    .fold-sm {
+        @apply flex md:flex-row flex-col gap-2;
     }
-    .fold-sm > *{
+
+    .fold-sm>* {
         @apply w-full md:w-1/2;
     }
-    .card{ 
-        @apply w-full overflow-hidden p-5 rounded-xl border-[0.05rem] max-w-[900px] w-full mx-auto border-zinc-200 bg-white shadow-[0px_40px_20px_rgba(0,0,0,0.03)];
+
+    .card {
+        @apply w-full overflow-hidden p-5 rounded-xl border-[0.05rem] max-w-[900px] w-full mx-auto border-zinc-200 bg-white;
     }
-    .border-light{
+
+    .border-light {
         @apply border-[0.05rem] border-zinc-200;
     }
-    .card-title{
-        @apply text-lg font-semibold;
+
+    .card-title {
+        @apply text-[1.4rem] font-semibold;
     }
-    .hover-bod{
+
+    .hover-bod {
         @apply px-2 py-2 hover:bg-zinc-100 rounded-md cursor-pointer;
     }
-    .hover-txt{
+
+    .hover-txt {
         @apply text-secondary-foreground text-[0.87rem] w-auto font-medium flex items-center gap-2;
     }
-    .text-med{
+
+    .text-med {
         @apply text-[1.05rem];
+    }
+    .slider-container{
+        @apply relative z-[99] w-full max-w-[500px] max-h-[400px] h-full   text-start;
+    }
+    .slide{
+        @apply absolute z-[1] w-full p-[20px] border-[1px]  rounded-md;
+    }
+    .slide h2{
+        @apply text-[2rem] mb-[10px] text-[#eaeaea] font-bold;
+    }
+    .slide p{
+        @apply text-[1rem] text-[#7e7e7e];
     }
 }

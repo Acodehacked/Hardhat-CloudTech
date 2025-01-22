@@ -5,7 +5,7 @@ export const ADMIN_TOOLS = [
         items: [
             {
                 title:'Companies',
-                route: '/'
+                route: '/companies'
             },
             {
                 title:'Settings',

@@ -19,6 +19,7 @@ import InputLabel from '@/Components/InputLabel';
 
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
+import Sitemark from '@/Components/Common/Sitemark';
 
 const Card = styled(MuiCard)(({ theme }: { theme: Theme }) => ({
   display: 'flex',
@@ -60,6 +61,7 @@ export default function Login({
   };
   return (
     <Card className='bg-white'>
+      <Sitemark />
       <h2 className='text-head'>Login</h2>
       <form onSubmit={submit}>
         <div>

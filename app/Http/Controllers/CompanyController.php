@@ -31,6 +31,8 @@ class CompanyController extends Controller
             'city'        => 'nullable|string|max:255',
             'address'     => 'required|string|max:2000',
             'email'       => 'required|email|max:100',
+            'password'    => 'required|string|min:8|max:32|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*?&]/|',
+            'comfirmpassword' => 'required|same:password|max:32',
             'phone'       => 'required|string|max:20',
             'website'     => 'nullable|url|max:255',
             'image'    => 'required|string|max:500', // Ensure the image exists in the images table

@@ -47,16 +47,16 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth'])->group(function () {
     //Master Admin Panel
     Route::middleware(AdminMiddleware::class)->group(function () {
-        Route::get('/admin/administrators', [CompanyController::class, 'index'])->name('admininistrators.index');
-        Route::get('/admin/administrators/create', [CompanyController::class, 'show'])->name('admininistrators.show');
-        Route::put('/admin/administrators/create', [CompanyController::class, 'store'])->name('admininistrators.create');
+        Route::get('/companies', [CompanyController::class, 'index'])->name('admininistrators.index');
+        Route::get('/companies/create', [CompanyController::class, 'show'])->name('admininistrators.show');
+        Route::put('/companies/create', [CompanyController::class, 'store'])->name('admininistrators.create');
     });
     Route::permanentRedirect ('/admin/login', '/dashboard');
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::post('/image-upload', [ImageUploaderController::class, 'store'])->name('image-upload');
-    
+
     Route::get('/projects',[ProjectController::class,'index'])->name('projects.view');
     //     Route::get('verify-email', EmailVerificationPromptController::class)
     //         ->name('verification.notice');

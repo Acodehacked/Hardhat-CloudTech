@@ -43,7 +43,7 @@ export default function AddAdmin() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/admin/administrators')
+        post('/companies')
         console.log(errors);
         // Handle form submission
     };

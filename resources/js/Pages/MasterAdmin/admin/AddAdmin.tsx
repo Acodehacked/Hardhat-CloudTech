@@ -48,6 +48,8 @@ export default function AddAdmin() {
         email: '',
         since: '',
         website: '',
+        password: '',
+        confirmpassword: '',
         description: '',
         code: unique_id.slice(0, 8)
     });
@@ -72,7 +74,7 @@ export default function AddAdmin() {
     };
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put('/admin/administrators/create', {
+        put('/companies/create', {
             onSuccess: (e) => {
                 console.log(e.props)
             },
@@ -91,7 +93,8 @@ export default function AddAdmin() {
                         <div className="flex flex-col justify-center">
                             <h3 className='card-title flex gap-2'>Add New Company {data.image != '' && <div className="bg-green-600 font-medium text-white rounded-sm p-1 text-sm">
                                 Logo uploaded</div>}</h3>
-                            <p className="text-zinc-300 font-light">This adds new Company and also creates credentials for login</p>
+                            <p className="text-zinc-900 font-light">This adds new Company and also creates credentials for login</p>
+                            <span className="text-zinc-400">Unique Code : {data.code}</span>
                         </div>
                     </div>
                     <div className="fold-sm mt-3">
@@ -269,14 +272,55 @@ export default function AddAdmin() {
 
                             <Input
                                 id="code"
+                                hidden
                                 name="code"
                                 type="text"
+                                className="hidden"
                                 value={data.code}
                                 disabled
                                 onChange={handleChange}
                             />
                         </div>
 
+                    </div>
+                    <div className="fold-sm mt-3">
+                        <div className="mb-4">
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-3">
+                                Create Password
+                            </label>
+                            <Input
+                                id="password"
+                                name="password"
+                                type="text"
+                                placeholder="New password"
+                                value={data.password}
+                                onChange={handleChange}
+                            />
+                            {errors.password && <span className="text-red-800 mt-1 text-sm">{errors?.password}</span>}
+                            <div className="flex flex-col p-2 text-secondary-foreground/50">
+                                <span>Password should:</span>
+                                <span>- Have minimum 8 characters</span>
+                                <span>- Must contain at least one lowercase letter</span>
+                                <span>- Must contain at least one uppercase letters</span>
+                                <span>- Must contain at least one number</span>
+                                <span>- Must contain a special character</span>
+                            </div>
+
+                        </div>
+                        <div className="mb-4 gap-0 flex flex-col">
+                            <label htmlFor="confirmpassword" className="block text-sm font-medium text-gray-700 mb-3">
+                                Confirm Password
+                            </label>
+                            <Input
+                                id="confirmpassword"
+                                name="confirmpassword"
+                                type="text"
+                                placeholder="Re-enter yout password here"
+                                value={data.confirmpassword}
+                                onChange={handleChange}
+                            />
+                            {errors.confirmpassword && <span className="text-red-800 mt-1 text-sm">{errors?.confirmpassword}</span>}
+                        </div>
                     </div>
                     <div className="w-full flex justify-end">
                         <Button type="submit" variant="contained" color="primary">
